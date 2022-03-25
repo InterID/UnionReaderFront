@@ -25,10 +25,10 @@
           </q-td>
           <q-td key="name" :props="props">
             <q-btn
-              v-on:click="openPopup(props.row)"
+              v-on:click.capture="openPopup(props.row)"
               color="primary"
               label="Редактировать">
-              <q-dialog v-model="popUpShow">
+              <q-dialog v-model="popUpShow" persistent>
                 <EditableDeviceTable
                   @pushButton="closePopup(props.row)"
                   :headerTable="'Ридер'"
