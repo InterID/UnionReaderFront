@@ -65,7 +65,7 @@
 
     <div class="q-pa-md q-gutter-sm">
       <q-btn
-        v-on:click="saveRow(editableRows[0], rowId)"
+        v-on:click="saveRow(editableRows[0])"
         color="primary"
         label="Сохранить" />
       <q-btn
@@ -133,11 +133,10 @@ export default defineComponent({
     // eslint-disable-next-line vue/no-setup-props-destructure
     let editableRows = props.rows;
 
-    function saveRow(row, rowId) {
+    function saveRow(row) {
       console.log("saveRow building = ", row);
-      console.log("saveRow rowId = ", rowId);
 
-      emit("pushButton", row, rowId);
+      emit("pushButton", row);
     }
 
     function cancelChange() {

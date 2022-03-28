@@ -2,10 +2,11 @@
   <div class="q-pa-md">
     <q-table
       :title="headerTable"
-      :rows="rows"
+      :rows="tableRows"
       :columns="columns"
       row-key="name"
       hide-bottom
+
     >
       <template v-slot:body="props">
         <q-tr :props="props">
@@ -30,8 +31,9 @@
               label="Редактировать">
               <q-dialog v-model="popUpShow" persistent>
                 <EditableDeviceTable
-                  @pushButton="closePopup(props.row)"
+                  @pushButton="closePopup"
                   :headerTable="'Ридер'"
+
                   :rows="rowArray"
                 />
               </q-dialog>
@@ -94,6 +96,9 @@ export default defineComponent({
 
   setup(props, { emit }) {
 
+    // eslint-disable-next-line vue/no-setup-props-destructure
+    let tableRows = props.rows;
+
     function isShow(reader) {
       antennaShow.value = true;
       if (checkReaderId.value === reader) {
@@ -107,6 +112,7 @@ export default defineComponent({
     }
 
     function openPopup(row) {
+
       putToArray(row);
       console.log(popUpShow.value);
       popUpShow.value = true;
@@ -123,13 +129,19 @@ export default defineComponent({
       rowArray.value = [];
     }
 
-    function closePopup(popUpRow, existingRow) {
+    function closePopup(newRow) {
+
+
+
+      console.log("newRow",  newRow)
+
       clearArray();
       popUpShow.value = false;
 
-      console.log("111", popUpShow.value);
-      // console.log(existingRow);
     }
+
+
+
 
     // function
 
@@ -143,7 +155,8 @@ export default defineComponent({
       clearArray,
       closePopup,
       openPopup,
-      popUpShow
+      popUpShow,
+      tableRows,
     };
   }
 });
