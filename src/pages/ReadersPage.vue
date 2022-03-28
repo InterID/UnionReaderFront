@@ -20,6 +20,8 @@ import DeviceTable from "../components/DeviceTable.vue";
 let antennaShow = ref(false);
 
 //Данные ридера
+
+let rowsREader
 const rowsReader = [
   {
     name: "Frozen Yogurt",
