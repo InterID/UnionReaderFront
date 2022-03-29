@@ -91,8 +91,8 @@ export default defineComponent({
 
   setup(props, { emit }) {
     // eslint-disable-next-line vue/no-setup-props-destructure
-    let tableRows = props.rows;
-
+    let tableRows = ref(props.rows);
+    let editableName = '';
     function isShow(reader) {
       antennaShow.value = true;
       if (checkReaderId.value === reader) {
@@ -106,6 +106,8 @@ export default defineComponent({
     }
 
     function openPopup(row) {
+      console.log('row to edit', row)
+      editableName = row.name
       putToArray(row);
       console.log(popUpShow.value);
       popUpShow.value = true;
@@ -121,8 +123,9 @@ export default defineComponent({
     }
 
     function closePopup(newRow) {
-      console.log("newRow", newRow);
-
+      const index = tableRows.value.findIndex(x => x.name === editableName);
+      tableRows.value[index]= newRow
+      editableName = ''
       clearArray();
       popUpShow.value = false;
     }

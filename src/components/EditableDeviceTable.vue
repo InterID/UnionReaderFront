@@ -133,7 +133,7 @@ export default defineComponent({
   setup(props, { emit }) {
     // eslint-disable-next-line vue/no-setup-props-destructure
     let editableRows = props.rows;
-
+    
     function saveRow(row) {
       console.log("saveRow building = ", row);
 
@@ -161,8 +161,6 @@ export default defineComponent({
     }
 
     function changeLocation(location, columnNumber) {
-      console.log("in CL", location, columnNumber);
-      console.log(location);
       if (columnNumber === "1") {
         editableRows[0].building = location.name;
         buildingShow.value = false;
