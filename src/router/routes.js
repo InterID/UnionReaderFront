@@ -20,6 +20,7 @@ const routes = [
   },
   {
     path: '/readers',
+    name: "readers",
     component: () => import('pages/ReadersPage.vue'),
     meta: { 
       requiresAuth: true

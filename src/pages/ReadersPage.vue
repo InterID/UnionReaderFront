@@ -82,7 +82,7 @@ export default {
     // })
     //   .then(response => {buildings = response
     //   });
-
+      
     return {
       antennaShow,
       isShow,

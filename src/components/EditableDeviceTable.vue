@@ -22,7 +22,8 @@
               position="right"
             >
               <LocationList
-                :location-name="columns[1].label"
+                :locationLabel="columns[1].label"
+                :locationName="columns[1].name"
                 :column-number="'1'"
                 @locationChange="changeLocation"
               />
@@ -39,7 +40,8 @@
               position="right"
             >
               <LocationList
-                :location-name="columns[2].label"
+                :locationLabel="columns[2].label"
+                :locationName="columns[2].name"
                 :column-number="'2'"
                 @locationChange="changeLocation"
               />
@@ -56,7 +58,8 @@
               position="right"
             >
               <LocationList
-                :location-name="columns[3].label"
+                :locationLabel="columns[3].label"
+                :locationName="columns[3].name"
                 :column-number="'3'"
                 @locationChange="changeLocation"
               />
@@ -158,18 +161,18 @@ export default defineComponent({
     }
 
     function changeLocation(location, columnNumber) {
-      console.log("in CL", location);
+      console.log("in CL", location, columnNumber);
       console.log(location);
       if (columnNumber === "1") {
-        editableRows[0].building = location;
+        editableRows[0].building = location.name;
         buildingShow.value = false;
       }
       if (columnNumber === "2") {
-        editableRows[0].floor = location;
+        editableRows[0].floor = location.name;
         floorShow.value = false;
       }
       if (columnNumber === "3") {
-        editableRows[0].premises = location;
+        editableRows[0].premises = location.name;
         premisesShow.value = false;
       }
     }
@@ -190,4 +193,10 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.q-dialog {
+  .q-pa-md{
+    background: white;
+  }
+}
+</style>

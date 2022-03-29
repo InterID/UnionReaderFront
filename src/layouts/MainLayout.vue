@@ -44,6 +44,7 @@
 <script>
 import { useQuasar } from "quasar";
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 // import { api } from 'boot/axios'
 
 // import EssentialLink from "components/EssentialLink";
@@ -72,7 +73,7 @@ export default {
       login:login,
       password:password,
     });
-
+    const router = useRouter();
     function onSubmit() {
 
 
@@ -92,7 +93,7 @@ export default {
       //     messpassword: 'Submitted'
       //   })
       // }
-      axios.get("http://eam.interid.ru:8764/api/buildings/")
+      //
       axios.post("http://eam.interid.ru:8764/api/auth/", data.value, {headers: {
       // axios.post("http://dev.union-eam.ru:8686/api/auth/sign-in", data.value, {headers: {
 
@@ -100,11 +101,14 @@ export default {
       }})
         .then(response => {
           axios.defaults.headers.common['Authorization'] = 'Bearer' + response.data;
-          localStorage.setItem('token', JSON.stringify(response.data))
+          localStorage.setItem('token', response.data)
           // localStorage. = response.data;
-          axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data
+          //axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data
+          router.push('readers')
+          //axios.get("http://eam.interid.ru:8764/api/buildings/")
           // commit('login', {token: response.data.token, user: response.data.user})
         });
+        
     }
 
     return {
