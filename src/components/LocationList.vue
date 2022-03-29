@@ -36,6 +36,10 @@ export default defineComponent({
     locationName: String,
     columnNumber: String,
     locations: { id: String, name: String },
+    locationId: {
+      type: String,
+      required: false
+    }
   },
 
   emits: ["locationChange"],
@@ -47,11 +51,19 @@ export default defineComponent({
     
     let locationsList = ref([])
     let loc = (props.locationName).toLowerCase() + ((props.locationName).slice(-1) == 's' ? '' : 's')
-
+    let params = {}
+    console.log('props.locationName', props.buildingId)
+    if (props.locationName == 'Floor') {
+      params= { building: props.locationId}
+    }
+    if (props.locationName == 'Premises') {
+      params= { floor: props.locationId}
+    }
     axios.get(`http://eam.interid.ru:8764/api/${loc}/`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
+      },
+      params
     }).then((response) => {
       locationsList.value = response.data;
     })

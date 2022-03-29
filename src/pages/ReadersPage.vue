@@ -13,6 +13,7 @@
 import { ref } from "vue";
 import DeviceTable from "../components/DeviceTable.vue";
 
+
 let antennaShow = ref(false);
 
 //Данные ридера
@@ -23,13 +24,17 @@ const rowsReader = [
     name: "Frozen Yogurt",
     building: 159,
     floor: 6.0,
+    buildingId: '16515',
     premises: 24,
+    floorId: '16515',
   },
   {
     name: "Ice cream sandwich",
     building: 237,
     floor: 9.0,
+    buildingId: '16515',
     premises: 37,
+    floorId: '16515',
   },
 ];
 
