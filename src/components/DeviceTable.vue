@@ -106,6 +106,7 @@ export default defineComponent({
     }
 
     function openPopup(row) {
+      clearArray()
       console.log('row to edit', row)
       editableName = row.name
       putToArray(row);
