@@ -12,12 +12,12 @@
           <q-td key="name" :props="props">
             {{ props.row.name }}
           </q-td>
-          <q-td key="name" :props="props"
-                @click="isShow(columns[1].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[1].label)">
             {{ props.row.building }}
             <q-dialog
               v-model="buildingShow"
-              persistent transition-show="scale"
+              persistent
+              transition-show="scale"
               transition-hide="scale"
               position="right"
             >
@@ -29,13 +29,15 @@
               <q-btn flat label="OK" v-close-popup />
             </q-dialog>
           </q-td>
-          <q-td key="name" :props="props"
-                @click="isShow(columns[2].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[2].label)">
             {{ props.row.floor }}
             <q-dialog
               v-model="floorShow"
-              persistent transition-show="scale" transition-hide="scale"
-              position="right">
+              persistent
+              transition-show="scale"
+              transition-hide="scale"
+              position="right"
+            >
               <LocationList
                 :location-name="columns[2].label"
                 :column-number="'2'"
@@ -44,13 +46,15 @@
               <q-btn flat label="OK" v-close-popup />
             </q-dialog>
           </q-td>
-          <q-td key="name" :props="props"
-                @click="isShow(columns[3].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[3].label)">
             {{ props.row.premises }}
             <q-dialog
               v-model="premisesShow"
-              persistent transition-show="scale" transition-hide="scale"
-              position="right">
+              persistent
+              transition-show="scale"
+              transition-hide="scale"
+              position="right"
+            >
               <LocationList
                 :location-name="columns[3].label"
                 :column-number="'3'"
@@ -67,23 +71,21 @@
       <q-btn
         v-on:click="saveRow(editableRows[0])"
         color="primary"
-        label="Сохранить" />
+        label="Сохранить"
+      />
       <q-btn
         v-on:click="cancelChange"
         color="white"
         text-color="black"
-        label="Отмена" />
+        label="Отмена"
+      />
     </div>
   </div>
-
-
 </template>
 
 <script>
-
 import { defineComponent, ref } from "vue";
 import LocationList from "components/LocationList.vue";
-
 
 const columns = [
   {
@@ -91,17 +93,16 @@ const columns = [
     required: true,
     label: "Имя ридера",
     align: "left",
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
+    field: (row) => row.name,
+    format: (val) => `${val}`,
+    sortable: true,
   },
 
   { name: "Building", label: "Здание", field: "building", sortable: true },
   { name: "Floor", label: "Этаж", field: "floor" },
   { name: "Premises", label: "Помещение", field: "premises" },
-  { name: "Buttons", label: "", field: "buttons" }
+  { name: "Buttons", label: "", field: "buttons" },
 ];
-
 
 let buildingShow = ref(false);
 let floorShow = ref(false);
@@ -113,23 +114,20 @@ export default defineComponent({
   name: "EditableDeviceTable",
   components: { LocationList },
 
-
   props: {
     headerTable: String,
     rows: {
       name: String,
       building: String,
       floor: String,
-      premises: String
+      premises: String,
     },
-    rowId:String,
+    rowId: String,
   },
-
 
   emits: ["pushButton"],
 
   setup(props, { emit }) {
-
     // eslint-disable-next-line vue/no-setup-props-destructure
     let editableRows = props.rows;
 
@@ -145,15 +143,15 @@ export default defineComponent({
     }
 
     function isShow(location) {
-      console.log((location));
-      if (location === (columns[1].label)) {
+      console.log(location);
+      if (location === columns[1].label) {
         buildingShow.value = true;
       }
-      if (location === (columns[2].label)) {
+      if (location === columns[2].label) {
         console.log(location.label);
         floorShow.value = true;
       }
-      if (location === (columns[3].label)) {
+      if (location === columns[3].label) {
         console.log(location);
         premisesShow.value = true;
       }
@@ -174,7 +172,6 @@ export default defineComponent({
         editableRows[0].premises = location;
         premisesShow.value = false;
       }
-
     }
 
     return {
@@ -187,13 +184,10 @@ export default defineComponent({
       premisesShow,
       isShow,
       changeLocation,
-      editableRows
+      editableRows,
     };
-  }
+  },
 });
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
