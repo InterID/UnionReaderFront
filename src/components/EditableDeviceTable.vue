@@ -107,16 +107,7 @@ let buildingShow = ref(false);
 let floorShow = ref(false);
 let premisesShow = ref(false);
 
-let emitData = [];
-
-let oldRow = {
-  name: String,
-  building: String,
-  floor: String,
-  premises: String
-}
-
-
+// let editableRows = props.rows;
 
 export default defineComponent({
   name: "EditableDeviceTable",
@@ -135,8 +126,6 @@ export default defineComponent({
   },
 
 
-
-
   emits: ["pushButton"],
 
   setup(props, { emit }) {
@@ -144,26 +133,15 @@ export default defineComponent({
     // eslint-disable-next-line vue/no-setup-props-destructure
     let editableRows = props.rows;
 
+    function saveRow(row) {
+      console.log("saveRow building = ", row);
 
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    oldRow.name=props.rows[0].name
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    oldRow.building=props.rows[0].building
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    oldRow.floor=props.rows[0].floor
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    oldRow.premises=props.rows[0].premises
-
-    function saveRow() {
-
-      console.log("AAAAAAAAAAAAAAA",editableRows)
-      emit("pushButton", oldRow, "Save");
+      emit("pushButton", row);
     }
 
     function cancelChange() {
-      console.log(oldRow)
-      console.log("AAAAAAAAAAAAAAA",editableRows)
-      emit("pushButton", oldRow, "Cancel");
+      emit("pushButton");
+      console.log();
     }
 
     function isShow(location) {
@@ -209,8 +187,7 @@ export default defineComponent({
       premisesShow,
       isShow,
       changeLocation,
-      editableRows,
-      oldRow
+      editableRows
     };
   }
 });
