@@ -94,7 +94,7 @@ export default {
       //   })
       // }
       //
-      axios.post("http://eam.interid.ru:8764/api/auth/", data.value, {headers: {
+      axios.post("http://localhost:8764/api/auth/", data.value, {headers: {
       // axios.post("http://dev.union-eam.ru:8686/api/auth/sign-in", data.value, {headers: {
 
         "Access-Control-Allow-Origin": "*",
@@ -108,7 +108,7 @@ export default {
           //axios.get("http://eam.interid.ru:8764/api/buildings/")
           // commit('login', {token: response.data.token, user: response.data.user})
         });
-        
+
     }
 
     return {
