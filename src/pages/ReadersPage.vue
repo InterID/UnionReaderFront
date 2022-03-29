@@ -3,7 +3,8 @@
   <DeviceTable
     :headerTable="'Ридеры'"
     :rows="rowsReader"
-    @showAntenna="isShow" />
+    @showAntenna="isShow"
+    />
   <div v-if="antennaShow">
     <DeviceTable
       :headerTable="'Антенны ридера'"
@@ -21,8 +22,8 @@ let antennaShow = ref(false);
 
 //Данные ридера
 
-let rowsREader
-const rowsReader = [
+let objIndex = 0;
+const rowsReader = ref([
   {
     name: "Frozen Yogurt",
     building: 159,
@@ -34,8 +35,15 @@ const rowsReader = [
     building: 237,
     floor: 9.0,
     premises: 37
+  },
+  {
+    name: "Swsws",
+    building: 567,
+    floor: 4,
+    premises: 45
   }
-];
+
+]);
 
 //Данные антенны
 const rowsAntenna = [
@@ -95,7 +103,7 @@ export default {
       antennaShow,
       isShow,
       rowsAntenna,
-      rowsReader
+      rowsReader,
     };
   }
 };

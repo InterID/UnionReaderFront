@@ -32,7 +32,7 @@
               <q-dialog v-model="popUpShow" persistent>
                 <EditableDeviceTable
                   @pushButton="closePopup"
-                  :headerTable="'Ридер'"
+                  :headerTable="headerTable"
 
                   :rows="rowArray"
                 />
@@ -54,9 +54,12 @@ let antennaShow = ref(false);
 
 let checkReaderId = ref("");
 
-const rowArray = ref([]);
+// const rowArray = ref([]);
+let rowArray =ref([]);
 
 let popUpShow = ref(false);
+
+let objIndex ;
 
 
 const columns = [
@@ -92,12 +95,15 @@ export default defineComponent({
     }
   },
 
-  emits: ["showAntenna"],
+  emits: ["showAntenna", "changeRow"],
+
 
   setup(props, { emit }) {
 
     // eslint-disable-next-line vue/no-setup-props-destructure
     let tableRows = props.rows;
+
+    console.log("!!!!! !!!!!", tableRows);
 
     function isShow(reader) {
       antennaShow.value = true;
@@ -125,22 +131,42 @@ export default defineComponent({
 
     }
 
-    function clearArray() {
+    function clearArray(rows, newRow) {
       rowArray.value = [];
     }
 
-    function closePopup(newRow) {
-
-
-
-      console.log("newRow",  newRow)
-
+    function closePopup(oldRow, button) {
       clearArray();
       popUpShow.value = false;
 
+      if (button === "Save") {
+        console.log("DDDDDDDDDDDDDDDDDDDD");
+
+        // if (){}
+        //alert("Not undefined");
+      } else {
+        //alert("Undefined");
+        console.log("objInd",objIndex)
+        console.log("UUUUUUUUUUUUUUUUUUUUU");
+        console.log(oldRow);
+        objIndex = tableRows.findIndex(obj => obj.name = oldRow.name);
+        console.log(tableRows)
+        console.log(objIndex)
+
+        if (tableRows[objIndex].building != oldRow.building ||
+            tableRows[objIndex].floor != oldRow.floor ||
+            tableRows[objIndex].premises != oldRow.premises) {
+          console.log("UUUUUUUUUUUUUUUUUUUUU1111");
+          tableRows[objIndex].building = oldRow.building;
+          tableRows[objIndex].floor = oldRow.floor;
+          tableRows[objIndex].premises = oldRow.premises;
+        }
+        objIndex= undefined
+
+      }
+
+      // emit("changeRow", newRow);
     }
-
-
 
 
     // function
@@ -156,7 +182,7 @@ export default defineComponent({
       closePopup,
       openPopup,
       popUpShow,
-      tableRows,
+      tableRows
     };
   }
 });
