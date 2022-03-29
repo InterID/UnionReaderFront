@@ -1,4 +1,3 @@
-
 const routes = [
   {
     path: '/',
@@ -21,7 +20,10 @@ const routes = [
   },
   {
     path: '/readers',
-    component: () => import('pages/ReadersPage.vue')
+    component: () => import('pages/ReadersPage.vue'),
+    meta: { 
+      requiresAuth: true
+    }
   }
 ]
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md" style="max-width: 400px">
+  <div class="q-pa-md login-form" style="max-width: 400px">
 
     <q-form
       @submit="onSubmit"
@@ -92,8 +92,8 @@ export default {
       //     messpassword: 'Submitted'
       //   })
       // }
-
-      axios.post("http://127.0.0.1:7878/api/auth/", data.value, {headers: {
+      axios.get("http://eam.interid.ru:8764/api/buildings/")
+      axios.post("http://eam.interid.ru:8764/api/auth/", data.value, {headers: {
       // axios.post("http://dev.union-eam.ru:8686/api/auth/sign-in", data.value, {headers: {
 
         "Access-Control-Allow-Origin": "*",
@@ -102,11 +102,9 @@ export default {
           axios.defaults.headers.common['Authorization'] = 'Bearer' + response.data;
           localStorage.setItem('token', JSON.stringify(response.data))
           // localStorage. = response.data;
-          axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
+          axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data
           // commit('login', {token: response.data.token, user: response.data.user})
         });
-
-      console.log(authResponse);
     }
 
     return {
@@ -123,3 +121,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.login-form {
+  margin: auto;
+}
+</style>
