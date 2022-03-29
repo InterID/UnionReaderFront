@@ -12,47 +12,54 @@
           <q-td key="name" :props="props">
             {{ props.row.name }}
           </q-td>
-          <q-td key="name" :props="props"
-                @click="isShow(columns[1].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[1].label)">
             {{ props.row.building }}
             <q-dialog
               v-model="buildingShow"
-              persistent transition-show="scale"
+              persistent
+              transition-show="scale"
               transition-hide="scale"
               position="right"
             >
               <LocationList
-                :location-name="columns[1].label"
+                :locationLabel="columns[1].label"
+                :locationName="columns[1].name"
                 :column-number="'1'"
                 @locationChange="changeLocation"
               />
               <q-btn flat label="OK" v-close-popup />
             </q-dialog>
           </q-td>
-          <q-td key="name" :props="props"
-                @click="isShow(columns[2].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[2].label)">
             {{ props.row.floor }}
             <q-dialog
               v-model="floorShow"
-              persistent transition-show="scale" transition-hide="scale"
-              position="right">
+              persistent
+              transition-show="scale"
+              transition-hide="scale"
+              position="right"
+            >
               <LocationList
-                :location-name="columns[2].label"
+                :locationLabel="columns[2].label"
+                :locationName="columns[2].name"
                 :column-number="'2'"
                 @locationChange="changeLocation"
               />
               <q-btn flat label="OK" v-close-popup />
             </q-dialog>
           </q-td>
-          <q-td key="name" :props="props"
-                @click="isShow(columns[3].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[3].label)">
             {{ props.row.premises }}
             <q-dialog
               v-model="premisesShow"
-              persistent transition-show="scale" transition-hide="scale"
-              position="right">
+              persistent
+              transition-show="scale"
+              transition-hide="scale"
+              position="right"
+            >
               <LocationList
-                :location-name="columns[3].label"
+                :locationLabel="columns[3].label"
+                :locationName="columns[3].name"
                 :column-number="'3'"
                 @locationChange="changeLocation"
               />
@@ -67,23 +74,21 @@
       <q-btn
         v-on:click="saveRow(editableRows[0])"
         color="primary"
-        label="Сохранить" />
+        label="Сохранить"
+      />
       <q-btn
         v-on:click="cancelChange"
         color="white"
         text-color="black"
-        label="Отмена" />
+        label="Отмена"
+      />
     </div>
   </div>
-
-
 </template>
 
 <script>
-
 import { defineComponent, ref } from "vue";
 import LocationList from "components/LocationList.vue";
-
 
 const columns = [
   {
@@ -91,17 +96,16 @@ const columns = [
     required: true,
     label: "Имя ридера",
     align: "left",
-    field: row => row.name,
-    format: val => `${val}`,
-    sortable: true
+    field: (row) => row.name,
+    format: (val) => `${val}`,
+    sortable: true,
   },
 
   { name: "Building", label: "Здание", field: "building", sortable: true },
   { name: "Floor", label: "Этаж", field: "floor" },
   { name: "Premises", label: "Помещение", field: "premises" },
-  { name: "Buttons", label: "", field: "buttons" }
+  { name: "Buttons", label: "", field: "buttons" },
 ];
-
 
 let buildingShow = ref(false);
 let floorShow = ref(false);
@@ -113,26 +117,23 @@ export default defineComponent({
   name: "EditableDeviceTable",
   components: { LocationList },
 
-
   props: {
     headerTable: String,
     rows: {
       name: String,
       building: String,
       floor: String,
-      premises: String
+      premises: String,
     },
-    rowId:String,
+    rowId: String,
   },
-
 
   emits: ["pushButton"],
 
   setup(props, { emit }) {
-
     // eslint-disable-next-line vue/no-setup-props-destructure
     let editableRows = props.rows;
-
+    
     function saveRow(row) {
       console.log("saveRow building = ", row);
 
@@ -145,36 +146,33 @@ export default defineComponent({
     }
 
     function isShow(location) {
-      console.log((location));
-      if (location === (columns[1].label)) {
+      console.log(location);
+      if (location === columns[1].label) {
         buildingShow.value = true;
       }
-      if (location === (columns[2].label)) {
+      if (location === columns[2].label) {
         console.log(location.label);
         floorShow.value = true;
       }
-      if (location === (columns[3].label)) {
+      if (location === columns[3].label) {
         console.log(location);
         premisesShow.value = true;
       }
     }
 
     function changeLocation(location, columnNumber) {
-      console.log("in CL", location);
-      console.log(location);
       if (columnNumber === "1") {
-        editableRows[0].building = location;
+        editableRows[0].building = location.name;
         buildingShow.value = false;
       }
       if (columnNumber === "2") {
-        editableRows[0].floor = location;
+        editableRows[0].floor = location.name;
         floorShow.value = false;
       }
       if (columnNumber === "3") {
-        editableRows[0].premises = location;
+        editableRows[0].premises = location.name;
         premisesShow.value = false;
       }
-
     }
 
     return {
@@ -187,13 +185,16 @@ export default defineComponent({
       premisesShow,
       isShow,
       changeLocation,
-      editableRows
+      editableRows,
     };
-  }
+  },
 });
-
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.q-dialog {
+  .q-pa-md{
+    background: white;
+  }
+}
 </style>

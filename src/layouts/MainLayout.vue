@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md" style="max-width: 400px">
+  <div class="q-pa-md login-form" style="max-width: 400px">
 
     <q-form
       @submit="onSubmit"
@@ -44,6 +44,7 @@
 <script>
 import { useQuasar } from "quasar";
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 // import { api } from 'boot/axios'
 
 // import EssentialLink from "components/EssentialLink";
@@ -72,7 +73,7 @@ export default {
       login:login,
       password:password,
     });
-
+    const router = useRouter();
     function onSubmit() {
 
 
@@ -92,21 +93,22 @@ export default {
       //     messpassword: 'Submitted'
       //   })
       // }
-
-      axios.post("http://127.0.0.1:7878/api/auth/", data.value, {headers: {
+      //
+      axios.post("http://eam.interid.ru:8764/api/auth/", data.value, {headers: {
       // axios.post("http://dev.union-eam.ru:8686/api/auth/sign-in", data.value, {headers: {
 
         "Access-Control-Allow-Origin": "*",
       }})
         .then(response => {
-          axios.defaults.headers.common['Authorization'] = 'Bearer' + response.data.token;
-          localStorage.setItem('token', JSON.stringify(response.data.token))
+          axios.defaults.headers.common['Authorization'] = 'Bearer' + response.data;
+          localStorage.setItem('token', response.data)
           // localStorage. = response.data;
-          // axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.token
+          //axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data
+          router.push('readers')
+          //axios.get("http://eam.interid.ru:8764/api/buildings/")
           // commit('login', {token: response.data.token, user: response.data.user})
         });
-
-      console.log(authResponse);
+        
     }
 
     return {
@@ -124,5 +126,8 @@ export default {
 };
 </script>
 
+<style scoped>
+.login-form {
+  margin: auto;
 }
-
+</style>
