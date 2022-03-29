@@ -123,10 +123,12 @@ export default defineComponent({
     }
 
     function closePopup(newRow) {
-      const index = tableRows.value.findIndex(x => x.name === editableName);
-      tableRows.value[index]= newRow
-      editableName = ''
-      clearArray();
+      if (newRow) {
+        const index = tableRows.value.findIndex(x => x.name === editableName);
+        tableRows.value[index]= newRow
+        editableName = ''
+        clearArray();
+      }
       popUpShow.value = false;
     }
 
