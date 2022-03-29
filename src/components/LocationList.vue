@@ -48,7 +48,8 @@ export default defineComponent({
     let locationsList = ref([])
     let loc = (props.locationName).toLowerCase() + ((props.locationName).slice(-1) == 's' ? '' : 's')
 
-    axios.get(`http://localhost:8764/api/${loc}/`, {
+    axios.get(`http://eam.interid.ru:8764/api/${loc}/`, {
+    // axios.get(`http://localhost:8764/api/${loc}/`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
