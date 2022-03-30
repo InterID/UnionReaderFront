@@ -16,7 +16,6 @@
             {{ props.row.building }}
             <q-dialog
               v-model="buildingShow"
-              persistent
               transition-show="scale"
               transition-hide="scale"
               position="right"
@@ -34,7 +33,6 @@
             {{ props.row.floor }}
             <q-dialog
               v-model="floorShow"
-              persistent
               transition-show="scale"
               transition-hide="scale"
               position="right"
@@ -53,11 +51,10 @@
             {{ props.row.premises }}
             <q-dialog
               v-model="premisesShow"
-              persistent
               transition-show="scale"
               transition-hide="scale"
               position="right"
-            >
+              >dsa
               <LocationList
                 :locationLabel="columns[3].label"
                 :locationName="columns[3].name"
@@ -135,7 +132,7 @@ export default defineComponent({
   setup(props, { emit }) {
     // eslint-disable-next-line vue/no-setup-props-destructure
     let editableRows = props.rows;
-    
+
     function saveRow(row) {
       console.log("saveRow building = ", row);
 
@@ -193,7 +190,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .q-dialog {
-  .q-pa-md{
+  .q-pa-md {
     background: white;
   }
 }
