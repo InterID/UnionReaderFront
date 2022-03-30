@@ -1,27 +1,42 @@
 <template>
-  <q-layout>
-    <q-header reveal elevated>
-      <q-toolbar style="flex-direction: row-reverse">
-        <!--<q-btn flat round dense icon="menu" class="q-mr-sm" />
-        <q-avatar>
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
-        </q-avatar>
+  <div class="q-pa-md login-form" style="max-width: 400px">
+    <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
+      <q-input
+        filled
+        v-model="login"
+        label="Логин *"
+        hint="Введите логин"
+        lazy-rules
+        :rules="[
+          // val => val && val.length > 0 || 'Please type something'
+        ]"
+      />
+      <!--{{login}}-->
+      <q-input
+        filled
+        v-model="password"
+        type="password"
+        hint="Введите пароль"
+        label="Пароль *"
+        lazy-rules
+        :rules="[
+          // val => val !== null && val !== '' || 'Please type your password',
+          // val => val > 0 && val < 100 || 'Please type a real password'
+        ]"
+      />
 
-        <q-toolbar-title>Quasar Framework</q-toolbar-title>-->
-
+      <div>
+        <q-btn label="Submit" type="submit" color="primary" />
         <q-btn
+          label="Reset"
+          type="reset"
+          color="primary"
           flat
-          round
-          dense
-          icon="settings"
-          @click="$router.replace('/settings')"
+          class="q-ml-sm"
         />
-      </q-toolbar>
-    </q-header>
-    <q-page-container>
-      <router-view></router-view>
-    </q-page-container>
-  </q-layout>
+      </div>
+    </q-form>
+  </div>
 </template>
 
 <script>
@@ -29,10 +44,12 @@ import { useQuasar } from "quasar";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 // import { api } from 'boot/axios'
+import { auth } from "../api/index.js";
 
 // import EssentialLink from "components/EssentialLink";
 import axios from "axios";
-
+import wrapper from "core-js/internals/array-iteration";
+//const process = require("process");
 export default {
   // eslint-disable-next-line vue/no-unused-components
   // components: { EssentialLink },
@@ -58,8 +75,6 @@ export default {
     const router = useRouter();
 
     function onSubmit() {
-      //console.log(process.env.MyData);
-
       // if (accept.value !== true) {
       //   $q.notify({
       //     color: 'red-5',
@@ -77,7 +92,10 @@ export default {
       //   })
       // }
       //
-      axios
+      auth(data.value).then(() => {
+        router.push("readers");
+      });
+      /*axios
         .post(" http://192.168.1.178:8764/api/auth/", data.value, {
           headers: {
             // axios.post("http://dev.union-eam.ru:8686/api/auth/sign-in", data.value, {headers: {
@@ -94,7 +112,7 @@ export default {
           router.push("readers");
           //axios.get("http://eam.interid.ru:8764/api/buildings/")
           // commit('login', {token: response.data.token, user: response.data.user})
-        });
+        });*/
     }
 
     return {
