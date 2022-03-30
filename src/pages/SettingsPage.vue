@@ -53,13 +53,8 @@ const data = {
   systemPassword: "dsv",
 };
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Settings",
   setup() {
-    /*let settingsData = reactive({
-      systemLogin: "",
-    });*/
-    console.log(getSettings());
     let dataCopy = {};
     const data = {
       systemLogin: "login",

@@ -13,7 +13,7 @@
 import { ref } from "vue";
 import DeviceTable from "../components/DeviceTable.vue";
 import axios from "axios";
-
+import { getReaders } from "../api/index.js";
 
 let antennaShow = ref(false);
 
@@ -21,25 +21,22 @@ let antennaShow = ref(false);
 
 let rowsREader;
 
-let readersList = ref([])
-
-
 const rowsReader = [
   {
     name: "Frozen Yogurt",
     building: 159,
     floor: 6.0,
-    buildingId: '16515',
+    buildingId: "16515",
     premises: 24,
-    floorId: '16515',
+    floorId: "16515",
   },
   {
     name: "Ice cream sandwich",
     building: 237,
     floor: 9.0,
-    buildingId: '16515',
+    buildingId: "16515",
     premises: 37,
-    floorId: '16515',
+    floorId: "16515",
   },
 ];
 
@@ -76,17 +73,28 @@ export default {
       antennaShow.value = value;
     }
 
-    axios.get(`http://localhost:8764/api/readers/`, {
+    /*axios.get(`http://localhost:8764/api/readers/`, {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
       }
     }).then((response) => {
       readersList.value = response.data;
-    })
-
-
-
-
+    })*/
+    let readersList = ref([]);
+    /*getReaders().then(() => {
+      readersList.value = response.data;
+      console.log(readersList);
+    });*/
+    axios
+      .get(`http://192.168.1.178:8764/api/readers/`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        readersList.value = response.data;
+        console.log(readersList.value);
+      });
     //Получение Ридеров
     // axios.get("http://127.0.0.1:7878/api/readers/", {
     //   headers: {
@@ -109,7 +117,7 @@ export default {
       isShow,
       rowsAntenna,
       rowsReader,
-      readersList
+      readersList,
     };
   },
 };

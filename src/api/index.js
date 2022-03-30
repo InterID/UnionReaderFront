@@ -49,3 +49,15 @@ export async function getLocations(location, params) {
       locationsList.value = response.data;
     });
 }
+
+export async function getReaders() {
+  await axios
+    .get(`${baseURL}/api/readers/`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      //readersList.value = response.data;
+    });
+}

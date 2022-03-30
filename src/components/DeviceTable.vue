@@ -1,5 +1,6 @@
 <template>
   <div class="q-pa-md">
+    {{ tableRows }}
     <q-table
       :title="headerTable"
       :rows="tableRows"
@@ -43,7 +44,7 @@
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import EditableDeviceTable from "components/EditableDeviceTable.vue";
 import axios from "axios";
 // import LocationList from "./LocationList.vue";
@@ -92,9 +93,9 @@ export default defineComponent({
 
   setup(props, { emit }) {
     // eslint-disable-next-line vue/no-setup-props-destructure
-    let tableRows = ref(props.rows);
-    let editableName = '';
-    let savedRow = ""
+    let tableRows = computed(() => props.rows);
+    let editableName = "";
+    let savedRow = "";
     function isShow(reader) {
       antennaShow.value = true;
       if (checkReaderId.value === reader) {
@@ -108,9 +109,9 @@ export default defineComponent({
     }
 
     function openPopup(row) {
-      clearArray()
-      console.log('row to edit', row)
-      editableName = row.name
+      clearArray();
+      console.log("row to edit", row);
+      editableName = row.name;
       putToArray(row);
       console.log(popUpShow.value);
       popUpShow.value = true;
@@ -127,19 +128,20 @@ export default defineComponent({
 
     function closePopup(newRow) {
       if (newRow) {
-        const index = tableRows.value.findIndex(x => x.name === editableName);
-        tableRows.value[index]= newRow
-        editableName = ''
+        const index = tableRows.value.findIndex((x) => x.name === editableName);
+        tableRows.value[index] = newRow;
+        editableName = "";
         clearArray();
 
-        console.log("POST",JSON.stringify(newRow))
+        console.log("POST", JSON.stringify(newRow));
 
-        axios.post("http://localhost:8764/api/save-reader", newRow, {
-          headers: {
-            "Authorization": `Bearer ${localStorage.getItem("token")}`
-          }
-        })
-          .then(response => savedRow = response.data.name);
+        axios
+          .post("http://localhost:8764/api/save-reader", newRow, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then((response) => (savedRow = response.data.name));
       }
       popUpShow.value = false;
     }
