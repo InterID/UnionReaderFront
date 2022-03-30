@@ -77,24 +77,6 @@ export default {
       //   })
       // }
       //
-      axios
-        .post(" http://192.168.1.178:8764/api/auth/", data.value, {
-          headers: {
-            // axios.post("http://dev.union-eam.ru:8686/api/auth/sign-in", data.value, {headers: {
-
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-        .then((response) => {
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer" + response.data;
-          localStorage.setItem("token", response.data);
-          // localStorage. = response.data;
-          //axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data
-          router.push("readers");
-          //axios.get("http://eam.interid.ru:8764/api/buildings/")
-          // commit('login', {token: response.data.token, user: response.data.user})
-        });
     }
 
     return {

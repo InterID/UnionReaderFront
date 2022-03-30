@@ -45,6 +45,7 @@
 <script>
 import { defineComponent, ref } from "vue";
 import EditableDeviceTable from "components/EditableDeviceTable.vue";
+import axios from "axios";
 // import LocationList from "./LocationList.vue";
 
 let antennaShow = ref(false);
@@ -93,6 +94,7 @@ export default defineComponent({
     // eslint-disable-next-line vue/no-setup-props-destructure
     let tableRows = ref(props.rows);
     let editableName = '';
+    let savedRow = ""
     function isShow(reader) {
       antennaShow.value = true;
       if (checkReaderId.value === reader) {
@@ -106,6 +108,7 @@ export default defineComponent({
     }
 
     function openPopup(row) {
+      clearArray()
       console.log('row to edit', row)
       editableName = row.name
       putToArray(row);
@@ -128,6 +131,15 @@ export default defineComponent({
         tableRows.value[index]= newRow
         editableName = ''
         clearArray();
+
+        console.log("POST",JSON.stringify(newRow))
+
+        axios.post("http://localhost:8764/api/save-reader", newRow, {
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+          .then(response => savedRow = response.data.name);
       }
       popUpShow.value = false;
     }

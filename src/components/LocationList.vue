@@ -69,6 +69,7 @@ export default defineComponent({
 
     getLocations(loc, params).then(() => (locationsList.value = response.data));
 
+
     return {
       heavyList,
       changeLocation,
