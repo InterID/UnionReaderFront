@@ -6,6 +6,7 @@
           >Readers</q-btn
         >
         <q-btn
+          v-if="path.path !== '/'"
           flat
           round
           dense
@@ -22,13 +23,16 @@
 
 <script>
 import { useQuasar } from "quasar";
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   setup() {
     const $q = useQuasar();
-    return {};
+    const path = computed(() => {
+      return useRoute();
+    });
+    return { path };
   },
 };
 </script>
