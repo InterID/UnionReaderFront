@@ -66,8 +66,7 @@ export default defineComponent({
     if (props.locationName == "Premises") {
       params = { floor: props.locationId };
     }
-
-    getLocations(loc, params).then(() => (locationsList.value = response.data));
+    getLocations(loc, params).then((result) => (locationsList.value = result));
 
     return {
       heavyList,

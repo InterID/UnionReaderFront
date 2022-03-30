@@ -9,16 +9,21 @@
     >
       <template v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="name" :props="props" v-on:click="isShow(props.row.name)">
+          <q-td
+            key="name"
+            :props="props"
+            v-on:click="isShow(props.row.name)"
+            class="text-left"
+          >
             {{ props.row.name }}
           </q-td>
-          <q-td key="name" :props="props">
+          <q-td key="name" :props="props" class="text-left">
             {{ props.row.building }}
           </q-td>
-          <q-td key="name" :props="props">
+          <q-td key="name" :props="props" class="text-left">
             {{ props.row.floor }}
           </q-td>
-          <q-td key="name" :props="props">
+          <q-td key="name" :props="props" class="text-left">
             {{ props.row.premises }}
           </q-td>
           <q-td key="name" :props="props">
@@ -67,10 +72,16 @@ const columns = [
     sortable: true,
   },
 
-  { name: "Building", label: "Здание", field: "building", sortable: true },
-  { name: "Floor", label: "Этаж", field: "floor" },
-  { name: "Premises", label: "Помещение", field: "premises" },
-  { name: "Buttons", label: "", field: "buttons" },
+  {
+    name: "Building",
+    label: "Здание",
+    align: "left",
+    field: "building",
+    sortable: true,
+  },
+  { name: "Floor", label: "Этаж", align: "left", field: "floor" },
+  { name: "Premises", label: "Помещение", align: "left", field: "premises" },
+  { name: "Buttons", label: "", align: "left", field: "buttons" },
 ];
 
 export default defineComponent({

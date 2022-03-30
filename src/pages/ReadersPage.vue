@@ -12,7 +12,6 @@
 <script>
 import { ref } from "vue";
 import DeviceTable from "../components/DeviceTable.vue";
-import axios from "axios";
 import { getReaders } from "../api/index.js";
 
 let antennaShow = ref(false);
@@ -63,54 +62,17 @@ const rowsAntenna = [
 ];
 
 export default {
-  props: {},
-
   components: {
     DeviceTable,
   },
-  setup(props) {
+  setup() {
     function isShow(value) {
       antennaShow.value = value;
     }
 
-    /*axios.get(`http://localhost:8764/api/readers/`, {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    }).then((response) => {
-      readersList.value = response.data;
-    })*/
     let readersList = ref([]);
-    /*getReaders().then(() => {
-      readersList.value = response.data;
-      console.log(readersList);
-    });*/
-    axios
-      .get(`http://192.168.1.178:8764/api/readers/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        readersList.value = response.data;
-        console.log(readersList.value);
-      });
-    //Получение Ридеров
-    // axios.get("http://127.0.0.1:7878/api/readers/", {
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*"
-    //   }
-    // })
-    //   .then(response => {readers = response
-    //   });
-    //
-    // axios.get("http://127.0.0.1:7878/api/buildings/", {
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*"
-    //   }
-    // })
-    //   .then(response => {buildings = response
-    //   });
+
+    getReaders().then((result) => (readersList.value = result));
 
     return {
       antennaShow,

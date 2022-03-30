@@ -38,7 +38,8 @@ export function postSettings(settings) {
     });
 }
 export async function getLocations(location, params) {
-  axios
+  let data;
+  await axios
     .get(`${baseURL}/api/${location}/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -46,11 +47,13 @@ export async function getLocations(location, params) {
       params,
     })
     .then((response) => {
-      locationsList.value = response.data;
+      data = response.data;
     });
+  return data;
 }
 
 export async function getReaders() {
+  let data;
   await axios
     .get(`${baseURL}/api/readers/`, {
       headers: {
@@ -58,6 +61,7 @@ export async function getReaders() {
       },
     })
     .then((response) => {
-      //readersList.value = response.data;
+      data = response.data;
     });
+  return data;
 }
