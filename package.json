@@ -8,19 +8,25 @@
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
     "format": "prettier --write \"**/*.{js,vue,scss,html,md,json}\" --ignore-path .gitignore",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "cross-env QENV=development quasar dev"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "quasar": "^2.0.0",
+    "quasar-dotenv": "^1.0.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.13.14",
     "@quasar/app": "^3.0.0",
+    "@quasar/quasar-app-extension-dotenv": "^1.1.0",
+    "@quasar/quasar-app-extension-qenv": "^1.1.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-vue": "^7.0.0",

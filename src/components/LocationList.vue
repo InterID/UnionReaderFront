@@ -1,7 +1,11 @@
 <template>
   <div class="q-pa-md q-gutter-sm" style="max-width: 350px">
     <h6>Выберите {{ locationLabel }}</h6>
-    <q-virtual-scroll style="max-height: 300px" :items="locationsList" separator>
+    <q-virtual-scroll
+      style="max-height: 300px"
+      :items="locationsList"
+      separator
+    >
       <template v-slot="{ item, index }">
         <q-item :key="index" dense>
           <q-item-section>
@@ -18,6 +22,7 @@
 <script>
 import { defineComponent, reactive, ref, computed } from "vue";
 import axios from "axios";
+import { getLocations } from "../api/index.js";
 
 const maxSize = 10000;
 const heavyList = [];
@@ -36,6 +41,10 @@ export default defineComponent({
     locationName: String,
     columnNumber: String,
     locations: { id: String, name: String },
+    locationId: {
+      type: String,
+      required: false,
+    },
   },
 
   emits: ["locationChange"],
@@ -45,17 +54,21 @@ export default defineComponent({
       emit("locationChange", location, props.columnNumber);
     }
 
-    let locationsList = ref([])
-    let loc = (props.locationName).toLowerCase() + ((props.locationName).slice(-1) == 's' ? '' : 's')
+    let locationsList = ref([]);
+    let loc =
+      props.locationName.toLowerCase() +
+      (props.locationName.slice(-1) == "s" ? "" : "s");
+    let params = {};
 
-    // axios.get(`http://eam.interid.ru:8764/api/${loc}/`, {
-    axios.get(`http://localhost:8764/api/${loc}/`, {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    }).then((response) => {
-      locationsList.value = response.data;
-    })
+    if (props.locationName == "Floor") {
+      params = { building: props.locationId };
+    }
+    if (props.locationName == "Premises") {
+      params = { floor: props.locationId };
+    }
+
+    getLocations(loc, params).then(() => (locationsList.value = response.data));
+
 
     return {
       heavyList,

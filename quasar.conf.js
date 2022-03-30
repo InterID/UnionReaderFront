@@ -9,7 +9,9 @@
 /* eslint-env node */
 const ESLintPlugin = require("eslint-webpack-plugin");
 const { configure } = require("quasar/wrappers");
-
+const DotEnv = require("dotenv");
+const webpack = require("webpack");
+const envparser = require("./config/envparser");
 module.exports = configure(function (ctx) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
@@ -43,7 +45,7 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
       vueRouterMode: "hash", // available values: 'hash', 'history'
-
+      env: envparser(),
       // transpile: false,
       // publicPath: '/',
 
@@ -63,6 +65,14 @@ module.exports = configure(function (ctx) {
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
+      extendWebpack(cfg) {
+        cfg.module.rules.push({
+          enforce: "pre",
+          test: /\.(js|vue)&/,
+          loader: "eslint-loader",
+          exclude: /(node_modules|quasar)/,
+        });
+      },
       chainWebpack(chain) {
         chain
           .plugin("eslint-webpack-plugin")

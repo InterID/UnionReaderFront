@@ -42,6 +42,7 @@
               <LocationList
                 :locationLabel="columns[2].label"
                 :locationName="columns[2].name"
+                :locationId="props.row.buildingId"
                 :column-number="'2'"
                 @locationChange="changeLocation"
               />
@@ -61,6 +62,7 @@
                 :locationLabel="columns[3].label"
                 :locationName="columns[3].name"
                 :column-number="'3'"
+                :locationId="props.row.floorId"
                 @locationChange="changeLocation"
               />
               <q-btn flat label="OK" v-close-popup />
@@ -142,11 +144,9 @@ export default defineComponent({
 
     function cancelChange() {
       emit("pushButton");
-      console.log();
     }
 
     function isShow(location) {
-      console.log(location);
       if (location === columns[1].label) {
         buildingShow.value = true;
       }

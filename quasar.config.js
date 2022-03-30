@@ -97,7 +97,11 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: [
+        new webpack.DefinePlugin({
+          "process.env.NODE_ENV": JSON.stringify("dsas"),
+        }),
+      ],
     },
 
     // animations: 'all', // --- includes all animations
