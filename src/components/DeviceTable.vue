@@ -1,6 +1,5 @@
 <template>
   <div class="q-pa-md">
-    {{ tableRows }}
     <q-table
       :title="headerTable"
       :rows="tableRows"
