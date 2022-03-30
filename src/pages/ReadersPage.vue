@@ -1,7 +1,7 @@
 <template>
   <DeviceTable
     :headerTable="'Ридеры'"
-    :rows="rowsReader"
+    :rows="readersList"
     @showAntenna="isShow"
   />
   <div v-if="antennaShow">
@@ -12,6 +12,7 @@
 <script>
 import { ref } from "vue";
 import DeviceTable from "../components/DeviceTable.vue";
+import axios from "axios";
 
 
 let antennaShow = ref(false);
@@ -19,6 +20,10 @@ let antennaShow = ref(false);
 //Данные ридера
 
 let rowsREader;
+
+let readersList = ref([])
+
+
 const rowsReader = [
   {
     name: "Frozen Yogurt",
@@ -71,6 +76,17 @@ export default {
       antennaShow.value = value;
     }
 
+    axios.get(`http://localhost:8764/api/readers/`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    }).then((response) => {
+      readersList.value = response.data;
+    })
+
+
+
+
     //Получение Ридеров
     // axios.get("http://127.0.0.1:7878/api/readers/", {
     //   headers: {
@@ -87,12 +103,13 @@ export default {
     // })
     //   .then(response => {buildings = response
     //   });
-      
+
     return {
       antennaShow,
       isShow,
       rowsAntenna,
       rowsReader,
+      readersList
     };
   },
 };
