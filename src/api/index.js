@@ -15,16 +15,18 @@ export async function auth(data) {
     });
 }
 
-export function getSettings() {
-  axios
+export async function getSettings() {
+  let data;
+  await axios
     .get(`${baseURL}/api/settings/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
     })
     .then((response) => {
-      return response;
+      data = response.data;
     });
+  return data;
 }
 
 export function postSettings(settings) {

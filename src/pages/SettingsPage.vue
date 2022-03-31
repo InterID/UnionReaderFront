@@ -56,6 +56,7 @@ export default {
   name: "Settings",
   setup() {
     let dataCopy = {};
+
     const data = {
       systemLogin: "login",
       completeActionStatus: "completeActionStatus",
@@ -80,6 +81,13 @@ export default {
     dataCopy = data;
     const newDataCopy = data;
     let settingsData = ref({ ...newDataCopy });
+
+    // getSettings(data=>settingsData)
+    getSettings().then((result) =>
+      {console.log(result)
+      settingsData.value = result});
+
+    console.log(settingsData.value);
 
     function reset() {
       settingsData.value = { ...dataCopy };
