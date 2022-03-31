@@ -18,13 +18,13 @@
             {{ props.row.name }}
           </q-td>
           <q-td key="name" :props="props" class="text-left">
-            {{ props.row.building }}
+            {{ props.row.buildingName }}
           </q-td>
           <q-td key="name" :props="props" class="text-left">
-            {{ props.row.floor }}
+            {{ props.row.floorName }}
           </q-td>
           <q-td key="name" :props="props" class="text-left">
-            {{ props.row.premises }}
+            {{ props.row.premisesName }}
           </q-td>
           <q-td key="name" :props="props">
             <q-btn
@@ -93,7 +93,7 @@ export default defineComponent({
     headerTable: String,
     rows: {
       name: String,
-      building: String,
+      buildingId: String,
       floor: String,
       premises: String,
     },
