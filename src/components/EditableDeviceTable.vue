@@ -143,6 +143,15 @@ export default defineComponent({
     // eslint-disable-next-line vue/no-setup-props-destructure
     let editableRows = props.rows;
 
+    buildingIdTemp = editableRows[0].buildingId;
+    buildingNameTemp = editableRows[0].buildingName;
+
+    floorNameTemp = editableRows[0].floorName;
+    floorIdTemp = editableRows[0].floorId;
+
+    premisesIdTemp = editableRows[0].premisesId;
+    premisesNameTemp = editableRows[0].premisesName;
+
     function saveRow(row) {
       console.log("saveRow building = ", row);
 
@@ -150,6 +159,8 @@ export default defineComponent({
     }
 
     function cancelChange() {
+
+
       editableRows[0].buildingId = buildingIdTemp
       editableRows[0].buildingName = buildingNameTemp
 
@@ -178,19 +189,19 @@ export default defineComponent({
 
     function changeLocation(location, columnNumber) {
       if (columnNumber === "1") {
-        buildingIdTemp = editableRows[0].buildingId;
-        buildingNameTemp = editableRows[0].buildingName;
+        // buildingIdTemp = editableRows[0].buildingId;
+        // buildingNameTemp = editableRows[0].buildingName;
 
-        floorIdTemp = editableRows[0].floorId;
+        // floorIdTemp = editableRows[0].floorId;
         editableRows[0].floorId = "";
 
-        floorNameTemp = editableRows[0].floorName;
+        // floorNameTemp = editableRows[0].floorName;
         editableRows[0].floorName = "";
 
-        premisesIdTemp = editableRows[0].premisesId;
+        // premisesIdTemp = editableRows[0].premisesId;
         editableRows[0].premisesId = "";
 
-        premisesNameTemp = editableRows[0].premisesName;
+        // premisesNameTemp = editableRows[0].premisesName;
         editableRows[0].premisesName = "";
 
         editableRows[0].buildingName = location.name;
@@ -202,17 +213,17 @@ export default defineComponent({
       }
       if (columnNumber === "2") {
 
-        buildingIdTemp = editableRows[0].buildingId;
-        buildingNameTemp = editableRows[0].buildingName;
+        // buildingIdTemp = editableRows[0].buildingId;
+        // buildingNameTemp = editableRows[0].buildingName;
 
-        floorNameTemp = editableRows[0].floorName;
+        // floorNameTemp = editableRows[0].floorName;
 
-        floorIdTemp = editableRows[0].floorId;
+        // floorIdTemp = editableRows[0].floorId;
 
-        premisesIdTemp = editableRows[0].premisesId;
+        // premisesIdTemp = editableRows[0].premisesId;
         editableRows[0].premisesId = "";
 
-        premisesNameTemp = editableRows[0].premisesName;
+        // premisesNameTemp = editableRows[0].premisesName;
         editableRows[0].premisesName = "";
 
         editableRows[0].floorName = location.name;
