@@ -115,7 +115,7 @@ export default defineComponent({
         return;
       }
       checkReaderId.value = reader;
-      emit("showAntenna", antennaShow.value);
+      emit("showAntenna", antennaShow.value, reader);
     }
 
     function openPopup(row) {
@@ -170,6 +170,7 @@ export default defineComponent({
       openPopup,
       popUpShow,
       tableRows,
+      editableName
     };
   },
 });

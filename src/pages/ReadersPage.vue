@@ -5,7 +5,7 @@
     @showAntenna="isShow"
   />
   <div v-if="antennaShow">
-    <DeviceTable :headerTable="'Антенны ридера'" :rows="rowsAntenna" />
+    <DeviceTable :headerTable="'Антенны ридера'" :rows="antennasList" />
   </div>
 </template>
 
@@ -13,73 +13,37 @@
 import { ref } from "vue";
 import DeviceTable from "../components/DeviceTable.vue";
 import { getReaders } from "../api/index.js";
+import { getAntennas } from "src/api";
 
 let antennaShow = ref(false);
-
-//Данные ридера
-
-let rowsREader;
-
-const rowsReader = [
-  {
-    name: "Frozen Yogurt",
-    building: 159,
-    floor: 6.0,
-    buildingId: "16515",
-    premises: 24,
-    floorId: "16515",
-  },
-  {
-    name: "Ice cream sandwich",
-    building: 237,
-    floor: 9.0,
-    buildingId: "16515",
-    premises: 37,
-    floorId: "16515",
-  },
-];
-
-//Данные антенны
-const rowsAntenna = [
-  {
-    name: "Frozen Yogurt",
-    building: 159,
-    floor: 6.0,
-    premises: 24,
-  },
-  {
-    name: "Ice cream sandwich",
-    building: 237,
-    floor: 9.0,
-    premises: 37,
-  },
-  {
-    name: "Eclair",
-    building: 262,
-    floor: 16.0,
-    premises: 23,
-  },
-];
 
 export default {
   components: {
     DeviceTable,
   },
   setup() {
-    function isShow(value) {
+
+    let antennasList = ref([]);
+
+    function isShow(value, readerName) {
       antennaShow.value = value;
+
+      if (value) {
+        getAntennas(readerName).then((result) => (antennasList.value = result))
+      }
     }
 
     let readersList = ref([]);
 
     getReaders().then((result) => (readersList.value = result));
 
+
+
     return {
       antennaShow,
       isShow,
-      rowsAntenna,
-      rowsReader,
       readersList,
+      antennasList
     };
   },
 };

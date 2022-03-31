@@ -65,3 +65,17 @@ export async function getReaders() {
     });
   return data;
 }
+
+export async function getAntennas(readerName) {
+  let data;
+  await axios
+    .get(`${baseURL}/api/antennas?readerName=${readerName}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((response) => {
+      data = response.data;
+    });
+  return data;
+}

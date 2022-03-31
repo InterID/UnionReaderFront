@@ -58,15 +58,21 @@ export default defineComponent({
     let loc =
       props.locationName.toLowerCase() +
       (props.locationName.slice(-1) == "s" ? "" : "s");
+
+    console.log("props",props.locationName)
     let params = {};
 
-    if (props.locationName == "Floor") {
+    if (props.locationName === "Floor") {
+console.log("props floor", props.locationName)
       params = { building: props.locationId };
     }
-    if (props.locationName == "Premises") {
+    if (props.locationName === "Premises") {
+      console.log("props premises", props.locationName)
       params = { floor: props.locationId };
     }
+
     getLocations(loc, params).then((result) => (locationsList.value = result));
+
 
     return {
       heavyList,

@@ -40,7 +40,7 @@
               <LocationList
                 :locationLabel="columns[2].label"
                 :locationName="columns[2].name"
-                :locationId="props.row.buildingId"
+                :locationId="props.row.building"
                 :column-number="'2'"
                 @locationChange="changeLocation"
               />
@@ -59,7 +59,7 @@
                 :locationLabel="columns[3].label"
                 :locationName="columns[3].name"
                 :column-number="'3'"
-                :locationId="props.row.floorId"
+                :locationId="props.row.floor"
                 @locationChange="changeLocation"
               />
               <q-btn flat label="OK" v-close-popup />
