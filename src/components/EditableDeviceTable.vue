@@ -40,7 +40,7 @@
               <LocationList
                 :locationLabel="columns[2].label"
                 :locationName="columns[2].name"
-                :locationId="props.row.building"
+                :locationId="props.row.buildingId"
                 :column-number="'2'"
                 @locationChange="changeLocation"
               />
@@ -59,7 +59,7 @@
                 :locationLabel="columns[3].label"
                 :locationName="columns[3].name"
                 :column-number="'3'"
-                :locationId="props.row.floor"
+                :locationId="props.row.floorId"
                 @locationChange="changeLocation"
               />
               <q-btn flat label="OK" v-close-popup />
@@ -160,14 +160,17 @@ export default defineComponent({
     function changeLocation(location, columnNumber) {
       if (columnNumber === "1") {
         editableRows[0].building = location.name;
+        editableRows[0].buildingId = location.id;
         buildingShow.value = false;
       }
       if (columnNumber === "2") {
         editableRows[0].floor = location.name;
+        editableRows[0].floorId = location.id;
         floorShow.value = false;
       }
       if (columnNumber === "3") {
         editableRows[0].premises = location.name;
+        editableRows[0].premisesId = location.id;
         premisesShow.value = false;
       }
     }
