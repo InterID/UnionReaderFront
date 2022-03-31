@@ -51,6 +51,7 @@
 import { defineComponent, ref, computed } from "vue";
 import EditableDeviceTable from "components/EditableDeviceTable.vue";
 import axios from "axios";
+import { saveDevice } from "src/api";
 // import LocationList from "./LocationList.vue";
 
 let antennaShow = ref(false);
@@ -143,15 +144,15 @@ export default defineComponent({
         editableName = "";
         clearArray();
 
-        console.log("POST", JSON.stringify(newRow));
+        saveDevice(newRow, props.headerTable).then((result) => (savedRow = result));
 
-        axios
-          .post("http://localhost:8764/api/save-reader", newRow, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then((response) => (savedRow = response.data.name));
+        // axios
+        //   .post("http://localhost:8764/api/save-reader", newRow, {
+        //     headers: {
+        //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+        //     },
+        //   })
+        //   .then((response) => (savedRow = response.data.name));
       }
       popUpShow.value = false;
     }
