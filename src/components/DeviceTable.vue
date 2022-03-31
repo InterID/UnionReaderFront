@@ -77,11 +77,11 @@ const columns = [
     name: "Building",
     label: "Здание",
     align: "left",
-    field: "building",
+    field: "buildingName",
     sortable: true,
   },
-  { name: "Floor", label: "Этаж", align: "left", field: "floor" },
-  { name: "Premises", label: "Помещение", align: "left", field: "premises" },
+  { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
+  { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
   { name: "Buttons", label: "", align: "left", field: "buttons" },
 ];
 
@@ -94,9 +94,12 @@ export default defineComponent({
     headerTable: String,
     rows: {
       name: String,
+      buildingName: String,
       buildingId: String,
-      floor: String,
-      premises: String,
+      floorName: String,
+      floorId: String,
+      premisesName: String,
+      premisesId: String,
     },
   },
 

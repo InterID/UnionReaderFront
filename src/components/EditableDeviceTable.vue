@@ -13,7 +13,7 @@
             {{ props.row.name }}
           </q-td>
           <q-td key="name" :props="props" @click="isShow(columns[1].label)">
-            {{ props.row.building }}
+            {{ props.row.buildingName }}
             <q-dialog
               v-model="buildingShow"
               transition-show="scale"
@@ -30,7 +30,7 @@
             </q-dialog>
           </q-td>
           <q-td key="name" :props="props" @click="isShow(columns[2].label)">
-            {{ props.row.floor }}
+            {{ props.row.floorName }}
             <q-dialog
               v-model="floorShow"
               transition-show="scale"
@@ -48,7 +48,7 @@
             </q-dialog>
           </q-td>
           <q-td key="name" :props="props" @click="isShow(columns[3].label)">
-            {{ props.row.premises }}
+            {{ props.row.premisesName }}
             <q-dialog
               v-model="premisesShow"
               transition-show="scale"
@@ -100,7 +100,7 @@ const columns = [
     sortable: true,
   },
 
-  { name: "Building", label: "Здание", field: "building", sortable: true },
+  { name: "Building", label: "Здание", field: "buildingName", sortable: true },
   { name: "Floor", label: "Этаж", field: "floor" },
   { name: "Premises", label: "Помещение", field: "premises" },
   { name: "Buttons", label: "", field: "buttons" },
@@ -120,9 +120,12 @@ export default defineComponent({
     headerTable: String,
     rows: {
       name: String,
-      building: String,
-      floor: String,
-      premises: String,
+      buildingName: String,
+      buildingId: String,
+      floorId: String,
+      floorName: String,
+      premisesId: String,
+      premisesName: String,
     },
     rowId: String,
   },
@@ -159,17 +162,17 @@ export default defineComponent({
 
     function changeLocation(location, columnNumber) {
       if (columnNumber === "1") {
-        editableRows[0].building = location.name;
+        editableRows[0].buildingName = location.name;
         editableRows[0].buildingId = location.id;
         buildingShow.value = false;
       }
       if (columnNumber === "2") {
-        editableRows[0].floor = location.name;
+        editableRows[0].floorName = location.name;
         editableRows[0].floorId = location.id;
         floorShow.value = false;
       }
       if (columnNumber === "3") {
-        editableRows[0].premises = location.name;
+        editableRows[0].premisesName = location.name;
         editableRows[0].premisesId = location.id;
         premisesShow.value = false;
       }

@@ -30,6 +30,7 @@ export default {
 
       if (value) {
         getAntennas(readerName).then((result) => (antennasList.value = result))
+        console.log(antennasList);
       }
     }
 
