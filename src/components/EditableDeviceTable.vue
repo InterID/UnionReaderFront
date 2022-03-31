@@ -110,6 +110,13 @@ let buildingShow = ref(false);
 let floorShow = ref(false);
 let premisesShow = ref(false);
 
+let buildingIdTemp = "";
+let buildingNameTemp = "";
+let floorIdTemp = "";
+let floorNameTemp = "";
+let premisesIdTemp = "";
+let premisesNameTemp = "";
+
 // let editableRows = props.rows;
 
 export default defineComponent({
@@ -143,6 +150,15 @@ export default defineComponent({
     }
 
     function cancelChange() {
+      editableRows[0].buildingId = buildingIdTemp
+      editableRows[0].buildingName = buildingNameTemp
+
+      editableRows[0].floorId = floorIdTemp
+      editableRows[0].floorName = floorNameTemp
+
+      editableRows[0].premisesId = premisesIdTemp
+      editableRows[0].premisesName = premisesNameTemp
+
       emit("pushButton");
     }
 
@@ -162,18 +178,62 @@ export default defineComponent({
 
     function changeLocation(location, columnNumber) {
       if (columnNumber === "1") {
+        buildingIdTemp = editableRows[0].buildingId;
+        buildingNameTemp = editableRows[0].buildingName;
+
+        floorIdTemp = editableRows[0].floorId;
+        editableRows[0].floorId = "";
+
+        floorNameTemp = editableRows[0].floorName;
+        editableRows[0].floorName = "";
+
+        premisesIdTemp = editableRows[0].premisesId;
+        editableRows[0].premisesId = "";
+
+        premisesNameTemp = editableRows[0].premisesName;
+        editableRows[0].premisesName = "";
+
         editableRows[0].buildingName = location.name;
         editableRows[0].buildingId = location.id;
+
+
+
         buildingShow.value = false;
       }
       if (columnNumber === "2") {
+
+        buildingIdTemp = editableRows[0].buildingId;
+        buildingNameTemp = editableRows[0].buildingName;
+
+        floorNameTemp = editableRows[0].floorName;
+
+        floorIdTemp = editableRows[0].floorId;
+
+        premisesIdTemp = editableRows[0].premisesId;
+        editableRows[0].premisesId = "";
+
+        premisesNameTemp = editableRows[0].premisesName;
+        editableRows[0].premisesName = "";
+
         editableRows[0].floorName = location.name;
         editableRows[0].floorId = location.id;
+
         floorShow.value = false;
       }
       if (columnNumber === "3") {
+
+        buildingIdTemp = editableRows[0].buildingId;
+        buildingNameTemp = editableRows[0].buildingName;
+
+        floorNameTemp = editableRows[0].floorName;
+        floorIdTemp = editableRows[0].floorId;
+
+        premisesIdTemp = editableRows[0].premisesId;
+        premisesNameTemp = editableRows[0].premisesName;
+
         editableRows[0].premisesName = location.name;
         editableRows[0].premisesId = location.id;
+
         premisesShow.value = false;
       }
     }
