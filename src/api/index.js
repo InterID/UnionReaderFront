@@ -111,3 +111,31 @@ export async function saveDevice(newRow, headerTable) {
   console.log(data)
   return data;
 }
+
+export async function getOrganizations() {
+  let data;
+  await axios
+    .get(`${baseURL}/api/organizations`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then((response) => {
+      data = response.data;
+    });
+  return data;
+}
+
+export async function getResponsible() {
+  let data;
+  await axios
+    .get(`${baseURL}/api/system-responsible`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    })
+    .then((response) => {
+      data = response.data;
+    });
+  return data;
+}

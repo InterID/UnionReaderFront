@@ -19,6 +19,14 @@
               :type="leftFields[index].type == 'number' ? 'number' : 'any'"
               :label="leftFields[index]['name']"
             />
+            <SettingsList
+              :initial-value="settingsData[leftFields[index].name]"
+              :list-data="organizationsData"
+              v-if="
+                leftFields[index].type == 'select' ||
+                leftFields[index].type == 'number'
+              "
+            />
           </q-item>
           <q-item>
             <q-input
@@ -31,6 +39,15 @@
               :type="rightFields[index].type == 'number' ? 'number' : 'string'"
               :label="rightFields[index].name"
             />
+            <SettingsList
+              :initial-value="settingsData[leftFields[index].name]"
+              :list-data="responsibleDataChangeArray"
+              v-if="
+                leftFields[index].type == 'select' ||
+                leftFields[index].type == 'number'
+              "
+            />
+
           </q-item>
         </div>
       </q-list>
@@ -46,29 +63,40 @@
 import { ref } from "vue";
 import { getSettings } from "../api/index.js";
 import { postSettings } from "../api/index.js";
+import SettingsList from "components/SettingsList";
+import { getOrganizations, getResponsible } from "src/api";
 
 const data = {
-  systemLogin: "login",
-  completeActionStatus: "completeActionStatus",
-  systemPassword: "dsv",
+  // systemLogin: "login",
+  // completeActionStatus: "completeActionStatus",
+  // systemPassword: "dsv"
 };
+
+let organizationsData = ref ([]);
+let responsibleData = ref ([]);
+let responsibleDataChangeArray = ref([]);
+
+
 export default {
   name: "Settings",
+  components: { SettingsList },
   setup() {
     let dataCopy = {};
 
-    const data = {
-      systemLogin: "login",
-      completeActionStatus: "completeActionStatus",
-      systemPassword: "dsv",
-    };
+
+
+    // const data = {
+    //   systemLogin: "login",
+    //   completeActionStatus: "completeActionStatus",
+    //   systemPassword: "dsv"
+    // };
     const leftFields = [
       { name: "onPlaceStatus", type: "input" },
       { name: "systemLogin", type: "input" },
       { name: "baseUrl", type: "input" },
       { name: "uncoordinatedMovementStatusId", type: "input" },
       { name: "inPlaceStatusId", type: "input" },
-      { name: "systemOrganizationId", type: "input" },
+      { name: "systemOrganizationId", type: "select" }
     ];
     const rightFields = [
       { name: "delayMinutes", type: "number" },
@@ -76,36 +104,61 @@ export default {
       { name: "completeActionStatus", type: "input" },
       { name: "lostStatusId", type: "input" },
       { name: "relocationType", type: "input" },
-      { name: "systemResponibleId", type: "input" },
+      { name: "systemResponibleId", type: "select" }
     ];
     dataCopy = data;
     const newDataCopy = data;
     let settingsData = ref({ ...newDataCopy });
 
+
     // getSettings(data=>settingsData)
-    getSettings().then((result) =>
-      {console.log(result)
-      settingsData.value = result});
+    getSettings().then((result) => {
+      settingsData.value = result;
+    });
+
+    getOrganizations().then((result) => {
+      organizationsData.value = result;
+      console.log("111111111",organizationsData.value);
+    });
+
+    getResponsible().then((result) => {
+      responsibleData.value = result;
+      responsibleDataChangeArray.value = result.map((res) => {
+        return {id:res.id, name: `${res.firstname} ${res.lastname}`} })
+      console.log("RRRRRRRRR",responsibleDataChangeArray.value)
+    });
+
+
+
+
+    console.log("Array",responsibleDataChangeArray);
 
     console.log(settingsData.value);
 
     function reset() {
       settingsData.value = { ...dataCopy };
     }
+
     function save() {
       console.log("save");
       postSettings(settingsData.value);
     }
+
     return {
       separator: ref("vertical"),
       settingsData,
       rightFields,
       leftFields,
       reset,
-      data,
+      // data,
       save,
+      organizationsData,
+      responsibleData,
+      responsibleDataChangeArray,
+
+
     };
-  },
+  }
 };
 </script>
 
@@ -113,21 +166,25 @@ export default {
 .wrapper {
   display: flex;
 }
+
 .settings {
   display: inline-block;
   margin: auto;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
+
   .rowInputs {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
   }
 }
+
 .q-input {
   margin: 0 20px 0 20px;
 }
+
 .buttons {
   display: flex;
   justify-content: space-around;
