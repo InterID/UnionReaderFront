@@ -1,7 +1,8 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.1.178:8764";
-
+ const baseURL = "http://192.168.1.178:8764";
+ // const baseURL = "http://192.168.1.95:8765";
+// 192.168.1.95:8765
 export async function auth(data) {
   await axios
     .post(`${baseURL}/api/auth/`, data, {
@@ -98,7 +99,8 @@ export async function saveDevice(newRow, headerTable) {
   }
 
   axios
-    .post(`http://localhost:8764/api/${path}`, newRow, {
+    // .post(`http://localhost:8764/api/${path}`, newRow, {
+    .post(`${baseURL}/api/${path}`, newRow, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`
       }
