@@ -141,3 +141,15 @@ export async function getResponsible() {
     });
   return data;
 }
+
+export async function getBaseUrlFromProp() {
+  let data;
+  await axios
+    .get(`${baseURL}/api/unionUrl/`, {
+
+    })
+    .then((response) => {
+      data = response.data;
+    });
+  return data;
+}

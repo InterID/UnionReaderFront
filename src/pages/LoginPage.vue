@@ -35,6 +35,26 @@
           class="q-ml-sm"
         />
       </div>
+
+
+        <div class="q-pa-md">
+          <q-checkbox v-model="val" />
+        </div>
+
+
+      <q-input
+        filled
+        v-model="unionUrl"
+        type="unionUrl"
+        hint="Адрес сервера Union"
+        label=""
+        lazy-rules
+        :rules="[
+          // val => val !== null && val !== '' || 'Please type your password',
+          // val => val > 0 && val < 100 || 'Please type a real password'
+        ]"
+      ></q-input>
+
     </q-form>
   </div>
 </template>
@@ -46,9 +66,11 @@ import { useRouter } from "vue-router";
 // import { api } from 'boot/axios'
 import { auth } from "../api/index.js";
 
+
 // import EssentialLink from "components/EssentialLink";
 import axios from "axios";
 import wrapper from "core-js/internals/array-iteration";
+import { getBaseUrlFromProp } from "src/api";
 //const process = require("process");
 export default {
   // eslint-disable-next-line vue/no-unused-components
@@ -63,6 +85,8 @@ export default {
 
     let authResponse = ref("");
 
+    let unionUrl = ref("");
+
     const request = {
       login,
       password,
@@ -73,6 +97,11 @@ export default {
       password: password,
     });
     const router = useRouter();
+
+    getBaseUrlFromProp().then((result) => {
+      unionUrl.value = result;
+      console.log("111111111",unionUrl.value);
+    });
 
     function onSubmit() {
       // if (accept.value !== true) {
@@ -120,6 +149,8 @@ export default {
       password,
       data,
       onSubmit,
+      val: ref(true),
+      unionUrl,
 
       onReset() {
         login.value = null;
