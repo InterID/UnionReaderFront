@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const baseURL = "http://192.168.1.178:8764";
+//http://192.168.1.178:8764
+const baseURL = "http://eam.interid.ru:8764";
 
 export async function auth(data) {
   await axios

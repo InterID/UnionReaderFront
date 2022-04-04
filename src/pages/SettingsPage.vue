@@ -26,6 +26,7 @@
                 leftFields[index].type == 'select' ||
                 leftFields[index].type == 'number'
               "
+              @updateValue="updateOrganizationValue"
             />
           </q-item>
           <q-item>
@@ -40,12 +41,14 @@
               :label="rightFields[index].name"
             />
             <SettingsList
-              :initial-value="settingsData[leftFields[index].name]"
+              v-model="settingsData[rightFields[index].name]"
+              :initial-value="settingsData[rightFields[index].name]"
               :list-data="responsibleDataChangeArray"
               v-if="
                 leftFields[index].type == 'select' ||
                 leftFields[index].type == 'number'
               "
+              @updateValue="updateResponsibleValue"
             />
 
           </q-item>
@@ -80,6 +83,7 @@ let responsibleDataChangeArray = ref([]);
 export default {
   name: "Settings",
   components: { SettingsList },
+  
   setup() {
     let dataCopy = {};
 
@@ -114,6 +118,7 @@ export default {
     // getSettings(data=>settingsData)
     getSettings().then((result) => {
       settingsData.value = result;
+      console.log('result', result)
     });
 
     getOrganizations().then((result) => {
@@ -140,10 +145,14 @@ export default {
     }
 
     function save() {
-      console.log("save");
       postSettings(settingsData.value);
     }
-
+    function updateResponsibleValue(value) {
+      settingsData.value.systemResponsibleId=value.value
+    }
+    function updateOrganizationValue(value) {
+      settingsData.value.systemOrganizationId=value.value
+    }
     return {
       separator: ref("vertical"),
       settingsData,
@@ -155,7 +164,8 @@ export default {
       organizationsData,
       responsibleData,
       responsibleDataChangeArray,
-
+      updateOrganizationValue,
+      updateResponsibleValue,
 
     };
   }

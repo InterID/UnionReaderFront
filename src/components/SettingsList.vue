@@ -1,16 +1,16 @@
 <template>
   <div class="q-pa-md">
-    <div class="q-gutter-md row">{{ listData }}
+    <div class="q-gutter-md row">
       <q-select
         filled
-        v-model="modelObject"
+        v-model="modelValue"
         use-input
         hide-selected
         fill-input
         input-debounce="0"
         :options="list"
         @filter="filterFn"
-        @update:model-value="temp"
+        @update:model-value="$emit('updateValue', modelValue)"
         hint="Введите условие для поиска"
         style="width: 250px; padding-bottom: 32px"
       >
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, watch, reactive } from "vue";
 
 const stringOptions = [
   "Google", "Facebook", "Twitter", "Apple", "Oracle"
@@ -56,22 +56,45 @@ export default defineComponent({
     initialValue: String
   },
 
-
+  emits: ["updateValue"],
   setup(props) {
 
+    let options = computed(() => {
+      return props.listData
+    });
 
-    let model = computed(() => props.initialValue);
+    let modelObject = computed(() => {
+      const option = props.listData.find((option) => option.id == props.initialValue)
+      if (option) return {value:props.initialValue, label: option.name}
+      return props.initialValue
+    });
 
-    console.log("88888888888888888",model.value)
-
-    let options = computed(() => props.listData);
-
-
+    let modelValue = ref({value: '', label: ''})
+    // eslint-disable-next-line
+    watch(() => props.listData, ()=>{
+      const option = props.listData.find((option) => option.id == props.initialValue) 
+      if(option) {
+      modelValue.value = {value: props.initialValue, label: option.name}  
+      }
+      /*const option = props.listData.find((option) => option.id == props.initialValue) 
+      if (option) {modelValue.value=props.initialValue
+        modelValue.label= option.name
+      }*/
+    })
+    watch(() => props.initialValue, ()=>{
+      const option = props.listData.find((option) => option.id == props.initialValue) 
+      if(option) {
+        modelValue.value = {value: props.initialValue, label: option.name}
+      }
+      /*const option = props.listData.find((option) => option.id == props.initialValue) 
+      if (option) {modelValue.value=props.initialValue
+        modelValue.label= option.name
+      }*/
+    })
 
     // modelObject =  {  value: options.value.find(option => option.id === model.value).id,
     //                 label: options.value.find(option => option.id === model.value).name};
 
-    console.log("MOOOOOOOO", props.listData);
 
 
 
@@ -80,10 +103,9 @@ export default defineComponent({
 
     // console.log("MOOOOOOOO",modelObject)
 
-    list =  options.value.map((res) => {
+    list =  computed(()=>options.value.map((res) => {
       return { value: res.id, label: res.name };
-
-    });
+    }));
 
     console.log("List", list.value);
 
@@ -94,10 +116,8 @@ export default defineComponent({
 
     function temp(model) {
 
-      console.log(model.value);
+      //console.log(model.value);
     }
-
-    console.log("2452524523452435", list);
 
 
     // eslint-disable-next-line vue/no-setup-props-destructure
@@ -105,11 +125,11 @@ export default defineComponent({
 
 
     return {
-      model,
       options,
       list,
       temp,
       modelObject,
+      modelValue,
 
       filterFn(val, update, abort) {
         update(() => {
