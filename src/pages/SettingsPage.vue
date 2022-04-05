@@ -76,14 +76,14 @@ const data = {
 };
 
 let organizationsData = ref ([]);
-let responsibleData = ref ([]);
+// let responsibleData = ref ([]);
 let responsibleDataChangeArray = ref([]);
 
 
 export default {
   name: "Settings",
   components: { SettingsList },
-  
+
   setup() {
     let dataCopy = {};
 
@@ -108,7 +108,7 @@ export default {
       { name: "completeActionStatus", type: "input" },
       { name: "lostStatusId", type: "input" },
       { name: "relocationType", type: "input" },
-      { name: "systemResponibleId", type: "select" }
+      { name: "systemResponsibleId", type: "select" }
     ];
     dataCopy = data;
     const newDataCopy = data;
@@ -118,19 +118,20 @@ export default {
     // getSettings(data=>settingsData)
     getSettings().then((result) => {
       settingsData.value = result;
-      console.log('result', result)
+      // console.log('result', result)
+      // console.log('settingsDATA', settingsData.value)
     });
 
     getOrganizations().then((result) => {
       organizationsData.value = result;
-      console.log("111111111",organizationsData.value);
+      // console.log("111111111",organizationsData.value);
     });
 
     getResponsible().then((result) => {
-      responsibleData.value = result;
+      // responsibleData.value = result;
       responsibleDataChangeArray.value = result.map((res) => {
         return {id:res.id, name: `${res.firstname} ${res.lastname}`} })
-      console.log("RRRRRRRRR",responsibleDataChangeArray.value)
+      // console.log("RRRRRRRRR",responsibleDataChangeArray.value)
     });
 
 
@@ -162,7 +163,7 @@ export default {
       // data,
       save,
       organizationsData,
-      responsibleData,
+      // responsibleData,
       responsibleDataChangeArray,
       updateOrganizationValue,
       updateResponsibleValue,

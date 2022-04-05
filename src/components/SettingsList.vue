@@ -63,34 +63,40 @@ export default defineComponent({
       return props.listData
     });
 
+
+
     let modelObject = computed(() => {
+      console.log("INVALUE",props.initialValue)
       const option = props.listData.find((option) => option.id == props.initialValue)
       if (option) return {value:props.initialValue, label: option.name}
       return props.initialValue
     });
 
     let modelValue = ref({value: '', label: ''})
-    // eslint-disable-next-line
+
     watch(() => props.listData, ()=>{
-      const option = props.listData.find((option) => option.id == props.initialValue) 
+      const option = props.listData.find((option) => option.id == props.initialValue)
+      console.log("OPTION",option);
+      console.log("initValue", props.initialValue)
+      console.log("listDATA", props.listData)
       if(option) {
-      modelValue.value = {value: props.initialValue, label: option.name}  
+      modelValue.value = {value: props.initialValue, label: option.name}
       }
-      /*const option = props.listData.find((option) => option.id == props.initialValue) 
+      /*const option = props.listData.find((option) => option.id == props.initialValue)
       if (option) {modelValue.value=props.initialValue
         modelValue.label= option.name
       }*/
     })
-    watch(() => props.initialValue, ()=>{
-      const option = props.listData.find((option) => option.id == props.initialValue) 
-      if(option) {
-        modelValue.value = {value: props.initialValue, label: option.name}
-      }
-      /*const option = props.listData.find((option) => option.id == props.initialValue) 
-      if (option) {modelValue.value=props.initialValue
-        modelValue.label= option.name
-      }*/
-    })
+    // watch(() => props.initialValue, ()=>{
+    //   const option = props.listData.find((option) => option.id == props.initialValue)
+    //   if(option) {
+    //     modelValue.value = {value: props.initialValue, label: option.name}
+    //   }
+    //   /*const option = props.listData.find((option) => option.id == props.initialValue)
+    //   if (option) {modelValue.value=props.initialValue
+    //     modelValue.label= option.name
+    //   }*/
+    // })
 
     // modelObject =  {  value: options.value.find(option => option.id === model.value).id,
     //                 label: options.value.find(option => option.id === model.value).name};
