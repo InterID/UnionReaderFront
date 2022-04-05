@@ -17,6 +17,8 @@ import { getReaders } from "../api/index.js";
 import { getAntennas } from "src/api";
 
 let antennaShow = ref(false);
+let antennasList = ref([]);
+
 
 export default {
   components: {
@@ -24,8 +26,10 @@ export default {
   },
   setup() {
 
+
+
     let antennasListTemp = ref([]);
-    let antennasList = ref([]);
+
      // let antennasList = ref([{name: String,
      //                                buildingId: String,
      //                                floorId:String,

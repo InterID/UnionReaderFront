@@ -62,28 +62,28 @@ const rowArray = ref([]);
 
 let popUpShow = ref(false);
 
-const columns = [
-  {
-    name: "name",
-    required: true,
-    label: "Имя ридера",
-    align: "left",
-    field: (row) => row.name,
-    format: (val) => `${val}`,
-    sortable: true,
-  },
-
-  {
-    name: "Building",
-    label: "Здание",
-    align: "left",
-    field: "buildingName",
-    sortable: true,
-  },
-  { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
-  { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
-  { name: "Buttons", label: "", align: "left", field: "buttons" },
-];
+// const columns = [
+//   {
+//     name: "name",
+//     required: true,
+//     label: "Имя ридера",
+//     align: "left",
+//     field: (row) => row.name,
+//     format: (val) => `${val}`,
+//     sortable: true,
+//   },
+//
+//   {
+//     name: "Building",
+//     label: "Здание",
+//     align: "left",
+//     field: "buildingName",
+//     sortable: true,
+//   },
+//   { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
+//   { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
+//   { name: "Buttons", label: "", align: "left", field: "buttons" },
+// ];
 
 export default defineComponent({
   name: "DeviceTable",
@@ -110,6 +110,9 @@ export default defineComponent({
     let tableRows = computed(() => props.rows);
     let editableName = "";
     let savedRow = "";
+    let columns;
+    let labelColumn = ref(false)
+
     function isShow(reader) {
       antennaShow.value = true;
       if (checkReaderId.value === reader) {
@@ -121,6 +124,55 @@ export default defineComponent({
       checkReaderId.value = reader;
       emit("showAntenna", antennaShow.value, reader);
     }
+
+if (props.headerTable === "Ридеры"){
+    columns = [
+      {
+        name: "name",
+        required: true,
+        label: "Имя ридера",
+        align: "left",
+        field: (row) => row.name,
+        format: (val) => `${val}`,
+        sortable: true,
+      },
+
+      {
+        name: "Building",
+        label: "Здание",
+        align: "left",
+        field: "buildingName",
+        sortable: true,
+      },
+      { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
+      { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
+      { name: "Buttons", label: "", align: "left", field: "buttons" },
+    ]}
+else{
+  columns = [
+    {
+      name: "name",
+      required: true,
+      label: "Имя антенны",
+      align: "left",
+      field: (row) => row.name,
+      format: (val) => `${val}`,
+      sortable: true,
+    },
+
+    {
+      name: "Building",
+      label: "Здание",
+      align: "left",
+      field: "buildingName",
+      sortable: true,
+    },
+    { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
+    { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
+    { name: "Buttons", label: "", align: "left", field: "buttons" },
+  ]
+}
+
 
     function openPopup(row) {
       clearArray();
