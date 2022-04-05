@@ -91,12 +91,17 @@ export async function saveDevice(newRow, headerTable) {
 
   let path;
 
+  let newRowForSend = {}
+
   console.log(headerTable);
 
   if (headerTable === "Ридеры") {
     path = "save-reader";
   } else {
     path = "save-antenna";
+
+
+
   }
 
   axios

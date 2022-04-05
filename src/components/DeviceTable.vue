@@ -35,7 +35,7 @@
               <q-dialog v-model="popUpShow" persistent>
                 <EditableDeviceTable
                   @pushButton="closePopup"
-                  :headerTable="'Ридер'"
+                  :headerTable="headerTable"
                   :rows="rowArray"
                 />
               </q-dialog>
@@ -44,6 +44,7 @@
         </q-tr>
       </template>
     </q-table>
+    {{headerTable}}
   </div>
 </template>
 
@@ -198,6 +199,8 @@ else{
         tableRows.value[index] = newRow;
         editableName = "";
         clearArray();
+
+
 
         saveDevice(newRow, props.headerTable).then((result) => (savedRow = result));
 

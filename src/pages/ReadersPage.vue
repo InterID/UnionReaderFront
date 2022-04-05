@@ -49,25 +49,26 @@ export default {
         // getAntennas(readerName).then((result) => (antennasList.value = result))
         // eslint-disable-next-line vue/no-async-in-computed-properties
 
-        getAntennas(readerName).then((result) => (antennasListTemp.value = result))
-        console.log(antennasListTemp.value);
+        getAntennas(readerName).then((result) => (antennasList.value = result))
+        // console.log(antennasListTemp.value);
 
         let index;
-        for (index = 0; index < antennasListTemp.value.length; ++index) {
-          let item ={name : antennasListTemp.value[0].antennaPort,
-            buildingId: antennasListTemp.value[0].buildingId,
-            buildingName: antennasListTemp.value[0].buildingName,
-            floorId: antennasListTemp.value[0].floorId,
-            floorName: antennasListTemp.value[0].floorName,
-            premisesId: antennasListTemp.value[0].premisesId,
-            premisesName: antennasListTemp.value[0].premisesName,
-            readerName: antennasListTemp.value[0].readerName}
-          console.log("1",item);
-
-          antennasList.value.push(item);
-
-          // console.log(antennasListTemp.value.length);
-        }
+        // for (index = 0; index < antennasListTemp.value.length; ++index) {
+        //   console.log(antennasListTemp.value[0].antennaPort);
+        //   let item ={name : antennasListTemp.value[0].antennaPort,
+        //     buildingId: antennasListTemp.value[0].buildingId,
+        //     buildingName: antennasListTemp.value[0].buildingName,
+        //     floorId: antennasListTemp.value[0].floorId,
+        //     floorName: antennasListTemp.value[0].floorName,
+        //     premisesId: antennasListTemp.value[0].premisesId,
+        //     premisesName: antennasListTemp.value[0].premisesName,
+        //     readerName: antennasListTemp.value[0].readerName}
+        //   console.log("1",item);
+        //
+        //   antennasList.value.push(item);
+        //
+        //   // console.log(antennasListTemp.value.length);
+        // }
         // antennasListTemp.value.forEach(function(item, i, antennaListTemp) {
         //   console.log(item);
         //   console.log(item);

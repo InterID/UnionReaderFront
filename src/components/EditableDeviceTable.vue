@@ -68,6 +68,7 @@
         </q-tr>
       </template>
     </q-table>
+    {{headerTable}}
 
     <div class="q-pa-md q-gutter-sm">
       <q-btn
