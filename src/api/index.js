@@ -4,9 +4,18 @@ const baseURL = "http://192.168.1.178:8764"
 // const baseURL = "http://eam.interid.ru:8764";
 // const baseURL = "http://192.168.1.95:8765";
 //
-export async function auth(data) {
+export async function auth(data, unionUrl) {
+
+  let dataToSend;
+  if (unionUrl){
+    dataToSend = { login :data.login, password: data.password,  url: unionUrl.value }
+    console.log(dataToSend);
+  }
+  else {
+    dataToSend = data
+  }
   await axios
-    .post(`${baseURL}/api/auth/`, data, {
+    .post(`${baseURL}/api/auth/`, dataToSend, {
       headers: {
         "Access-Control-Allow-Origin": "*"
       }
