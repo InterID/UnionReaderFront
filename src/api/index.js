@@ -1,8 +1,9 @@
 import axios from "axios";
 
- const baseURL = "http://192.168.1.178:8764";
- // const baseURL = "http://192.168.1.95:8765";
-// 192.168.1.95:8765
+const baseURL = "http://192.168.1.178:8764"
+// const baseURL = "http://eam.interid.ru:8764";
+// const baseURL = "http://192.168.1.95:8765";
+//
 export async function auth(data) {
   await axios
     .post(`${baseURL}/api/auth/`, data, {
