@@ -24,7 +24,6 @@
           // val => val > 0 && val < 100 || 'Please type a real password'
         ]"
       />
-
       <div>
         <q-btn label="Submit" type="submit" color="primary" />
         <q-btn
@@ -35,26 +34,22 @@
           class="q-ml-sm"
         />
       </div>
-
-
-        <div class="q-pa-md">
-          <q-checkbox v-model="val" />
-        </div>
-
-
-      <q-input
-        filled
-        v-model="unionUrl"
-        type="unionUrl"
-        hint="Адрес сервера Union"
-        label=""
-        lazy-rules
-        :rules="[
-          // val => val !== null && val !== '' || 'Please type your password',
-          // val => val > 0 && val < 100 || 'Please type a real password'
-        ]"
-      ></q-input>
-
+      <div style="display: flex; margin-top: 25px;">
+        <q-checkbox v-model="val" />
+        <q-input
+          filled
+          v-model="unionUrl"
+          type="unionUrl"
+          hint="Адрес сервера Union"
+          label=""
+          lazy-rules
+          style="width: 100%"
+          :rules="[
+            // val => val !== null && val !== '' || 'Please type your password',
+            // val => val > 0 && val < 100 || 'Please type a real password'
+          ]"
+        />
+      </div>
     </q-form>
   </div>
 </template>

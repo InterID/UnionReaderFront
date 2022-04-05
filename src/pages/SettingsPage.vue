@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="settings">
       <q-list link>
-        <q-list-header>User controls</q-list-header>
+        <q-item-label header>Настройки</q-item-label>
         <div
           v-for="(field, index) in leftFields"
           :key="index"
@@ -194,10 +194,16 @@ export default {
 
 .q-input {
   margin: 0 20px 0 20px;
+  width: 250px;
 }
 
 .buttons {
   display: flex;
   justify-content: space-around;
+}
+
+.q-item__label--header  {
+  color: $primary;
+  font-size: 24px;
 }
 </style>
