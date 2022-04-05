@@ -87,6 +87,8 @@ export default {
 
     let unionUrl = ref("");
 
+    let val = ref(false);
+
     const request = {
       login,
       password,
@@ -121,9 +123,19 @@ export default {
       //   })
       // }
       //
-      auth(data.value).then(() => {
-        router.push("readers");
-      });
+
+      if (val.value){
+        auth(data.value, unionUrl).then(() => {
+          router.push("settings");
+
+        });
+      }
+      else {
+        auth(data.value).then(() => {
+          router.push("readers");
+
+        });
+      }
       /*axios
         .post(" http://192.168.1.178:8764/api/auth/", data.value, {
           headers: {
@@ -149,8 +161,9 @@ export default {
       password,
       data,
       onSubmit,
-      val: ref(true),
+
       unionUrl,
+      val,
 
       onReset() {
         login.value = null;
