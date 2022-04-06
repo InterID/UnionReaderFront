@@ -12,7 +12,6 @@ export async function auth(data, unionUrl) {
       password: data.password,
       url: unionUrl.value,
     };
-    console.log(dataToSend);
   } else {
     dataToSend = data;
   }
@@ -104,8 +103,6 @@ export async function saveDevice(newRow, headerTable) {
 
   let newRowForSend = {};
 
-  console.log(headerTable);
-
   if (headerTable === "Ридеры") {
     path = "save-reader";
   } else {
@@ -123,7 +120,6 @@ export async function saveDevice(newRow, headerTable) {
       data = response.data.nameId;
     });
 
-  console.log(data);
   return data;
 }
 

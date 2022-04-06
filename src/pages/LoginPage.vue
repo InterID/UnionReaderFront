@@ -34,7 +34,7 @@
           class="q-ml-sm"
         />
       </div>
-      <div style="display: flex; margin-top: 25px;">
+      <div style="display: flex; margin-top: 25px">
         <q-checkbox v-model="val" />
         <q-input
           filled
@@ -61,19 +61,23 @@ import { useRouter } from "vue-router";
 // import { api } from 'boot/axios'
 import { auth } from "../api/index.js";
 
-
 // import EssentialLink from "components/EssentialLink";
 import axios from "axios";
 import wrapper from "core-js/internals/array-iteration";
 import { getBaseUrlFromProp } from "src/api";
-//const process = require("process");
+//import { getStore } from "./src/store/index.js";
+//import { getStore } from "
+import { getStore } from "../store";
 export default {
   // eslint-disable-next-line vue/no-unused-components
   // components: { EssentialLink },
 
   setup() {
     const $q = useQuasar();
-
+    //store.tore
+    //console.log(getStore().dispatch("settings/setBaseUrlState"));
+    //store = getStore().dispatch("settings/setBaseUrlState");
+    //store.dispatch("settings/setBaseUrlState");
     let login = ref("");
 
     let password = ref("");
@@ -97,7 +101,6 @@ export default {
 
     getBaseUrlFromProp().then((result) => {
       unionUrl.value = result;
-      console.log("111111111",unionUrl.value);
     });
 
     function onSubmit() {
@@ -119,16 +122,14 @@ export default {
       // }
       //
 
-      if (val.value){
+      if (val.value) {
         auth(data.value, unionUrl).then(() => {
           router.push("settings");
-
+          getStore().dispatch("settings/setBaseUrlState", true);
         });
-      }
-      else {
+      } else {
         auth(data.value).then(() => {
           router.push("readers");
-
         });
       }
       /*axios

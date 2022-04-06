@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import DeviceTable from "../components/DeviceTable.vue";
 import { getReaders } from "../api/index.js";
 import { getAntennas } from "src/api";
@@ -45,7 +45,6 @@ export default {
         // let tableRows = computed(() => props.rows);
 
         // getAntennas(readerName).then((result) => (antennasList.value = result))
-        // eslint-disable-next-line vue/no-async-in-computed-properties
 
         getAntennas(readerName).then((result) => (antennasList.value = result));
         // console.log(antennasListTemp.value);

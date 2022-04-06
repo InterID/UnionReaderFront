@@ -54,7 +54,7 @@
               transition-show="scale"
               transition-hide="scale"
               position="right"
-              >dsa
+            >
               <LocationList
                 :locationLabel="columns[3].label"
                 :locationName="columns[3].name"
@@ -68,7 +68,6 @@
         </q-tr>
       </template>
     </q-table>
-    {{ headerTable }}
 
     <div class="q-pa-md q-gutter-sm">
       <q-btn
@@ -177,11 +176,9 @@ export default defineComponent({
         buildingShow.value = true;
       }
       if (location === columns[2].label) {
-        console.log(location.label);
         floorShow.value = true;
       }
       if (location === columns[3].label) {
-        console.log(location);
         premisesShow.value = true;
       }
     }
