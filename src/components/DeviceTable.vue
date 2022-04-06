@@ -32,7 +32,7 @@
               color="primary"
               label="Редактировать"
             >
-              <q-dialog v-model="popUpShow" persistent>
+              <q-dialog v-model="popUpShow[headerTableEng]" persistent>
                 <EditableDeviceTable
                   @pushButton="closePopup"
                   :headerTable="headerTable"
@@ -44,7 +44,6 @@
         </q-tr>
       </template>
     </q-table>
-    {{headerTable}}
   </div>
 </template>
 
@@ -61,7 +60,7 @@ let checkReaderId = ref("");
 
 const rowArray = ref([]);
 
-let popUpShow = ref(false);
+//let popUpShow = ref(false);
 
 // const columns = [
 //   {
@@ -93,6 +92,7 @@ export default defineComponent({
 
   props: {
     headerTable: String,
+    headerTableEng: String,
     rows: {
       name: String,
       buildingName: String,
@@ -112,7 +112,7 @@ export default defineComponent({
     let editableName = "";
     let savedRow = "";
     let columns;
-    let labelColumn = ref(false)
+    let labelColumn = ref(false);
 
     function isShow(reader) {
       antennaShow.value = true;
@@ -125,64 +125,72 @@ export default defineComponent({
       checkReaderId.value = reader;
       emit("showAntenna", antennaShow.value, reader);
     }
+    let popUpShow = ref([]);
+    popUpShow[props.headerTableEng] = false;
+    if (props.headerTable === "Ридеры") {
+      columns = [
+        {
+          name: "name",
+          required: true,
+          label: "Имя ридера",
+          align: "left",
+          field: (row) => row.name,
+          format: (val) => `${val}`,
+          sortable: true,
+        },
 
-if (props.headerTable === "Ридеры"){
-    columns = [
-      {
-        name: "name",
-        required: true,
-        label: "Имя ридера",
-        align: "left",
-        field: (row) => row.name,
-        format: (val) => `${val}`,
-        sortable: true,
-      },
+        {
+          name: "Building",
+          label: "Здание",
+          align: "left",
+          field: "buildingName",
+          sortable: true,
+        },
+        { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
+        {
+          name: "Premises",
+          label: "Помещение",
+          align: "left",
+          field: "premisesName",
+        },
+        { name: "Buttons", label: "", align: "left", field: "buttons" },
+      ];
+    } else {
+      columns = [
+        {
+          name: "name",
+          required: true,
+          label: "Имя антенны",
+          align: "left",
+          field: (row) => row.name,
+          format: (val) => `${val}`,
+          sortable: true,
+        },
 
-      {
-        name: "Building",
-        label: "Здание",
-        align: "left",
-        field: "buildingName",
-        sortable: true,
-      },
-      { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
-      { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
-      { name: "Buttons", label: "", align: "left", field: "buttons" },
-    ]}
-else{
-  columns = [
-    {
-      name: "name",
-      required: true,
-      label: "Имя антенны",
-      align: "left",
-      field: (row) => row.name,
-      format: (val) => `${val}`,
-      sortable: true,
-    },
-
-    {
-      name: "Building",
-      label: "Здание",
-      align: "left",
-      field: "buildingName",
-      sortable: true,
-    },
-    { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
-    { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
-    { name: "Buttons", label: "", align: "left", field: "buttons" },
-  ]
-}
-
+        {
+          name: "Building",
+          label: "Здание",
+          align: "left",
+          field: "buildingName",
+          sortable: true,
+        },
+        { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
+        {
+          name: "Premises",
+          label: "Помещение",
+          align: "left",
+          field: "premisesName",
+        },
+        { name: "Buttons", label: "", align: "left", field: "buttons" },
+      ];
+    }
 
     function openPopup(row) {
       clearArray();
-      console.log("row to edit", row);
       editableName = row.name;
       putToArray(row);
-      console.log(popUpShow.value);
-      popUpShow.value = true;
-      console.log(popUpShow.value);
+      //console.log(popUpShow.value);
+      popUpShow.value[props.headerTableEng] = true;
     }
 
     function putToArray(row) {
@@ -200,9 +208,9 @@ else{
         editableName = "";
         clearArray();
 
-
-
-        saveDevice(newRow, props.headerTable).then((result) => (savedRow = result));
+        saveDevice(newRow, props.headerTable).then(
+          (result) => (savedRow = result)
+        );
 
         // axios
         //   .post("http://localhost:8764/api/save-reader", newRow, {
@@ -212,7 +220,7 @@ else{
         //   })
         //   .then((response) => (savedRow = response.data.name));
       }
-      popUpShow.value = false;
+      popUpShow.value[props.headerTableEng] = false;
     }
 
     // function
@@ -229,7 +237,7 @@ else{
       openPopup,
       popUpShow,
       tableRows,
-      editableName
+      editableName,
     };
   },
 });

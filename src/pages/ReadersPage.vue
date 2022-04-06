@@ -1,12 +1,16 @@
 <template>
   <DeviceTable
     :headerTable="'Ридеры'"
-
+    :headerTableEng="'Readers'"
     :rows="readersList"
     @showAntenna="isShow"
   />
   <div v-if="antennaShow">
-    <DeviceTable :headerTable="'Антенны ридера'" :rows="antennasList" />
+    <DeviceTable
+      :headerTableEng="'Antennas'"
+      :headerTable="'Антенны ридера'"
+      :rows="antennasList"
+    />
   </div>
 </template>
 
@@ -19,37 +23,31 @@ import { getAntennas } from "src/api";
 let antennaShow = ref(false);
 let antennasList = ref([]);
 
-
 export default {
   components: {
     DeviceTable,
   },
   setup() {
-
-
-
     let antennasListTemp = ref([]);
 
-     // let antennasList = ref([{name: String,
-     //                                buildingId: String,
-     //                                floorId:String,
-     //                                premisesId:String,
-     //                                readerId:String}]);
+    // let antennasList = ref([{name: String,
+    //                                buildingId: String,
+    //                                floorId:String,
+    //                                premisesId:String,
+    //                                readerId:String}]);
 
     function isShow(value, readerName) {
       antennaShow.value = value;
 
       if (value) {
-
         // console.log("LABEL",label.value)
-
 
         // let tableRows = computed(() => props.rows);
 
         // getAntennas(readerName).then((result) => (antennasList.value = result))
         // eslint-disable-next-line vue/no-async-in-computed-properties
 
-        getAntennas(readerName).then((result) => (antennasList.value = result))
+        getAntennas(readerName).then((result) => (antennasList.value = result));
         // console.log(antennasListTemp.value);
 
         let index;
@@ -75,14 +73,8 @@ export default {
         // //   antennasList.value.push({name: item.antennaPort, buildingId: item.buildingId})
         // });
 
-
-
-
-
-
         // console.log(antennasListTemp);
-      }
-      else{
+      } else {
         // label.value = "Имя ридера"
         antennasList.value = [];
       }
@@ -92,15 +84,12 @@ export default {
 
     getReaders().then((result) => (readersList.value = result));
 
-
-
     return {
       antennaShow,
       isShow,
       readersList,
       antennasList,
       antennasListTemp,
-
     };
   },
 };

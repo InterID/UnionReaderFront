@@ -68,7 +68,7 @@
         </q-tr>
       </template>
     </q-table>
-    {{headerTable}}
+    {{ headerTable }}
 
     <div class="q-pa-md q-gutter-sm">
       <q-btn
@@ -160,16 +160,14 @@ export default defineComponent({
     }
 
     function cancelChange() {
+      editableRows[0].buildingId = buildingIdTemp;
+      editableRows[0].buildingName = buildingNameTemp;
 
+      editableRows[0].floorId = floorIdTemp;
+      editableRows[0].floorName = floorNameTemp;
 
-      editableRows[0].buildingId = buildingIdTemp
-      editableRows[0].buildingName = buildingNameTemp
-
-      editableRows[0].floorId = floorIdTemp
-      editableRows[0].floorName = floorNameTemp
-
-      editableRows[0].premisesId = premisesIdTemp
-      editableRows[0].premisesName = premisesNameTemp
+      editableRows[0].premisesId = premisesIdTemp;
+      editableRows[0].premisesName = premisesNameTemp;
 
       emit("pushButton");
     }
@@ -208,12 +206,9 @@ export default defineComponent({
         editableRows[0].buildingName = location.name;
         editableRows[0].buildingId = location.id;
 
-
-
         buildingShow.value = false;
       }
       if (columnNumber === "2") {
-
         // buildingIdTemp = editableRows[0].buildingId;
         // buildingNameTemp = editableRows[0].buildingName;
 
@@ -233,7 +228,6 @@ export default defineComponent({
         floorShow.value = false;
       }
       if (columnNumber === "3") {
-
         buildingIdTemp = editableRows[0].buildingId;
         buildingNameTemp = editableRows[0].buildingName;
 

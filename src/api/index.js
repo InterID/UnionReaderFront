@@ -1,24 +1,26 @@
 import axios from "axios";
 
-// const baseURL = "http://192.168.1.178:8764"
-const baseURL = "https://eam.interid.ru:8282";
+const baseURL = "http://192.168.1.178:8764";
+// const baseURL = "https://eam.interid.ru:8282";
 // const baseURL = "http://192.168.1.95:8765";
 //
 export async function auth(data, unionUrl) {
-
   let dataToSend;
-  if (unionUrl){
-    dataToSend = { login :data.login, password: data.password,  url: unionUrl.value }
+  if (unionUrl) {
+    dataToSend = {
+      login: data.login,
+      password: data.password,
+      url: unionUrl.value,
+    };
     console.log(dataToSend);
-  }
-  else {
-    dataToSend = data
+  } else {
+    dataToSend = data;
   }
   await axios
     .post(`${baseURL}/api/auth/`, dataToSend, {
       headers: {
-        "Access-Control-Allow-Origin": "*"
-      }
+        "Access-Control-Allow-Origin": "*",
+      },
     })
     .then((response) => {
       axios.defaults.headers.common["Authorization"] = "Bearer" + response.data;
@@ -31,8 +33,8 @@ export async function getSettings() {
   await axios
     .get(`${baseURL}/api/settings/`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       data = response.data;
@@ -44,8 +46,8 @@ export function postSettings(settings) {
   axios
     .post(`${baseURL}/api/settings/`, settings, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       return response;
@@ -57,9 +59,9 @@ export async function getLocations(location, params) {
   await axios
     .get(`${baseURL}/api/${location}/`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      params
+      params,
     })
     .then((response) => {
       data = response.data;
@@ -72,8 +74,8 @@ export async function getReaders() {
   await axios
     .get(`${baseURL}/api/readers/`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       data = response.data;
@@ -86,8 +88,8 @@ export async function getAntennas(readerName) {
   await axios
     .get(`${baseURL}/api/antennas?readerName=${readerName}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       data = response.data;
@@ -100,7 +102,7 @@ export async function saveDevice(newRow, headerTable) {
 
   let path;
 
-  let newRowForSend = {}
+  let newRowForSend = {};
 
   console.log(headerTable);
 
@@ -108,24 +110,20 @@ export async function saveDevice(newRow, headerTable) {
     path = "save-reader";
   } else {
     path = "save-antenna";
-
-
-
   }
 
   axios
     // .post(`http://localhost:8764/api/${path}`, newRow, {
     .post(`${baseURL}/api/${path}`, newRow, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       data = response.data.nameId;
     });
 
-
-  console.log(data)
+  console.log(data);
   return data;
 }
 
@@ -134,8 +132,8 @@ export async function getOrganizations() {
   await axios
     .get(`${baseURL}/api/organizations`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       data = response.data;
@@ -148,8 +146,8 @@ export async function getResponsible() {
   await axios
     .get(`${baseURL}/api/system-responsible`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      }
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     })
     .then((response) => {
       data = response.data;
@@ -159,12 +157,8 @@ export async function getResponsible() {
 
 export async function getBaseUrlFromProp() {
   let data;
-  await axios
-    .get(`${baseURL}/api/unionUrl/`, {
-
-    })
-    .then((response) => {
-      data = response.data;
-    });
+  await axios.get(`${baseURL}/api/unionUrl/`, {}).then((response) => {
+    data = response.data;
+  });
   return data;
 }
