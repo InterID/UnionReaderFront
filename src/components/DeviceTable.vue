@@ -60,31 +60,6 @@ let checkReaderId = ref("");
 
 const rowArray = ref([]);
 
-//let popUpShow = ref(false);
-
-// const columns = [
-//   {
-//     name: "name",
-//     required: true,
-//     label: "Имя ридера",
-//     align: "left",
-//     field: (row) => row.name,
-//     format: (val) => `${val}`,
-//     sortable: true,
-//   },
-//
-//   {
-//     name: "Building",
-//     label: "Здание",
-//     align: "left",
-//     field: "buildingName",
-//     sortable: true,
-//   },
-//   { name: "Floor", label: "Этаж", align: "left", field: "floorName" },
-//   { name: "Premises", label: "Помещение", align: "left", field: "premisesName" },
-//   { name: "Buttons", label: "", align: "left", field: "buttons" },
-// ];
-
 export default defineComponent({
   name: "DeviceTable",
 
@@ -189,7 +164,6 @@ export default defineComponent({
       clearArray();
       editableName = row.name;
       putToArray(row);
-      //console.log(popUpShow.value);
       popUpShow.value[props.headerTableEng] = true;
     }
 
@@ -211,19 +185,9 @@ export default defineComponent({
         saveDevice(newRow, props.headerTable).then(
           (result) => (savedRow = result)
         );
-
-        // axios
-        //   .post("http://localhost:8764/api/save-reader", newRow, {
-        //     headers: {
-        //       Authorization: `Bearer ${localStorage.getItem("token")}`,
-        //     },
-        //   })
-        //   .then((response) => (savedRow = response.data.name));
       }
       popUpShow.value[props.headerTableEng] = false;
     }
-
-    // function
 
     return {
       columns,
@@ -232,7 +196,6 @@ export default defineComponent({
       checkReaderId,
       rowArray,
       putToArray,
-      clearArray,
       closePopup,
       openPopup,
       popUpShow,

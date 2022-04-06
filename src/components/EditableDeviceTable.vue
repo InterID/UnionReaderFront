@@ -117,8 +117,6 @@ let floorNameTemp = "";
 let premisesIdTemp = "";
 let premisesNameTemp = "";
 
-// let editableRows = props.rows;
-
 export default defineComponent({
   name: "EditableDeviceTable",
   components: { LocationList },
@@ -185,19 +183,12 @@ export default defineComponent({
 
     function changeLocation(location, columnNumber) {
       if (columnNumber === "1") {
-        // buildingIdTemp = editableRows[0].buildingId;
-        // buildingNameTemp = editableRows[0].buildingName;
-
-        // floorIdTemp = editableRows[0].floorId;
         editableRows[0].floorId = "";
 
-        // floorNameTemp = editableRows[0].floorName;
         editableRows[0].floorName = "";
 
-        // premisesIdTemp = editableRows[0].premisesId;
         editableRows[0].premisesId = "";
 
-        // premisesNameTemp = editableRows[0].premisesName;
         editableRows[0].premisesName = "";
 
         editableRows[0].buildingName = location.name;
@@ -206,17 +197,9 @@ export default defineComponent({
         buildingShow.value = false;
       }
       if (columnNumber === "2") {
-        // buildingIdTemp = editableRows[0].buildingId;
-        // buildingNameTemp = editableRows[0].buildingName;
 
-        // floorNameTemp = editableRows[0].floorName;
-
-        // floorIdTemp = editableRows[0].floorId;
-
-        // premisesIdTemp = editableRows[0].premisesId;
         editableRows[0].premisesId = "";
 
-        // premisesNameTemp = editableRows[0].premisesName;
         editableRows[0].premisesName = "";
 
         editableRows[0].floorName = location.name;
