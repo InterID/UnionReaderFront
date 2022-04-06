@@ -83,13 +83,11 @@ import { getOrganizations, getResponsible } from "src/api";
 import { getStore } from "../store";
 
 const data = {
-  // systemLogin: "login",
-  // completeActionStatus: "completeActionStatus",
-  // systemPassword: "dsv"
+
 };
 
 let organizationsData = ref([]);
-// let responsibleData = ref ([]);
+
 let responsibleDataChangeArray = ref([]);
 
 export default {
@@ -99,11 +97,6 @@ export default {
   setup() {
     let dataCopy = {};
 
-    // const data = {
-    //   systemLogin: "login",
-    //   completeActionStatus: "completeActionStatus",
-    //   systemPassword: "dsv"
-    // };
     const leftFields = [
       { name: "onPlaceStatus", type: "input" },
       { name: "systemLogin", type: "input" },
@@ -137,24 +130,18 @@ export default {
         if (newVal) alert.value = true;
       }
     );
-    // getSettings(data=>settingsData)
     getSettings().then((result) => {
       settingsData.value = result;
-      // console.log('result', result)
-      // console.log('settingsDATA', settingsData.value)
     });
 
     getOrganizations().then((result) => {
       organizationsData.value = result;
-      // console.log("111111111",organizationsData.value);
     });
 
     getResponsible().then((result) => {
-      // responsibleData.value = result;
       responsibleDataChangeArray.value = result.map((res) => {
         return { id: res.id, name: `${res.firstname} ${res.lastname}` };
       });
-      // console.log("RRRRRRRRR",responsibleDataChangeArray.value)
     });
 
     function reset() {
@@ -176,10 +163,8 @@ export default {
       rightFields,
       leftFields,
       reset,
-      // data,
       save,
       organizationsData,
-      // responsibleData,
       responsibleDataChangeArray,
       updateOrganizationValue,
       updateResponsibleValue,

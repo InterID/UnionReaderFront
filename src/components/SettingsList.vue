@@ -74,41 +74,14 @@ export default defineComponent({
         if (option) {
           modelValue.value = { value: props.initialValue, label: option.name };
         }
-        /*const option = props.listData.find((option) => option.id == props.initialValue)
-      if (option) {modelValue.value=props.initialValue
-        modelValue.label= option.name
-      }*/
       }
     );
-    // watch(() => props.initialValue, ()=>{
-    //   const option = props.listData.find((option) => option.id == props.initialValue)
-    //   if(option) {
-    //     modelValue.value = {value: props.initialValue, label: option.name}
-    //   }
-    //   /*const option = props.listData.find((option) => option.id == props.initialValue)
-    //   if (option) {modelValue.value=props.initialValue
-    //     modelValue.label= option.name
-    //   }*/
-    // })
-
-    // modelObject =  {  value: options.value.find(option => option.id === model.value).id,
-    //                 label: options.value.find(option => option.id === model.value).name};
-
-    // modelObject = {value: options.value.find(option => option.id === model.value).id,
-    //                label: options.value.find(option => option.id === model.value).name}
-
-    // console.log("MOOOOOOOO",modelObject)
 
     list = computed(() =>
       options.value.map((res) => {
         return { value: res.id, label: res.name };
       })
     );
-
-    // modelObject = {value: list.find((list) => list.id === model.value).value,
-    //   label: list.find(list => list.id === model.value).label}
-
-    // console.log("MOOOOOOOO",modelObject)
 
     function temp(model) {
       //console.log(model.value);
