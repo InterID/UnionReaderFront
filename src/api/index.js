@@ -20,9 +20,9 @@ export async function auth(data, unionUrl) {
   }
   await axios
     .post(`${baseURL}/api/auth/`, dataToSend, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+      // headers: {
+      //   "Access-Control-Allow-Origin": "*",
+      // },
     })
     .then((response) => {
       axios.defaults.headers.common["Authorization"] = "Bearer" + response.data;
@@ -36,7 +36,7 @@ export async function getSettings() {
     .get(`${baseURL}/api/settings/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     })
     .then((response) => {
@@ -50,7 +50,7 @@ export function postSettings(settings) {
     .post(`${baseURL}/api/settings/`, settings, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     })
     .then((response) => {
@@ -64,7 +64,7 @@ export async function getLocations(location, params) {
     .get(`${baseURL}/api/${location}/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
       params,
     })
@@ -80,7 +80,7 @@ export async function getReaders() {
     .get(`${baseURL}/api/readers/`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     })
     .then((response) => {
@@ -95,7 +95,7 @@ export async function getAntennas(readerName) {
     .get(`${baseURL}/api/antennas?readerName=${readerName}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     })
     .then((response) => {
@@ -122,7 +122,7 @@ export async function saveDevice(newRow, headerTable) {
     .post(`${baseURL}/api/${path}`, newRow, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     })
     .then((response) => {
@@ -138,7 +138,7 @@ export async function getOrganizations() {
     .get(`${baseURL}/api/organizations`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     })
     .then((response) => {
@@ -153,7 +153,7 @@ export async function getResponsible() {
     .get(`${baseURL}/api/system-responsible`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Access-Control-Allow-Origin": "*",
+        // "Access-Control-Allow-Origin": "*",
       },
     })
     .then((response) => {
@@ -164,11 +164,11 @@ export async function getResponsible() {
 
 export async function getBaseUrlFromProp() {
   let data;
-  await axios.get(`${baseURL}/api/unionUrl/`, {
-    headers: {
-
-      "Access-Control-Allow-Origin": "*",
-    },
+  await axios.get(`${baseURL}/api/unionUrl`, {
+    // headers: {
+    //
+    //   "Access-Control-Allow-Origin": "*",
+    // },
   }).then((response) => {
     data = response.data;
   });

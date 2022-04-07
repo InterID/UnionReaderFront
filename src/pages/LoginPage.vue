@@ -92,7 +92,7 @@ export default {
       login,
       password,
     };
-    //console.info(process.env);
+
     let data = ref({
       login: login,
       password: password,
@@ -104,23 +104,6 @@ export default {
     });
 
     function onSubmit() {
-      // if (accept.value !== true) {
-      //   $q.notify({
-      //     color: 'red-5',
-      //     textColor: 'white',
-      //     icon: 'warning',
-      //     messpassword: 'You need to accept the license and terms first'
-      //   })
-      // }
-      // else {
-      //   $q.notify({
-      //     color: 'green-4',
-      //     textColor: 'white',
-      //     icon: 'cloud_done',
-      //     messpassword: 'Submitted'
-      //   })
-      // }
-      //
 
       if (val.value) {
         auth(data.value, unionUrl).then(() => {
@@ -132,24 +115,6 @@ export default {
           router.push("readers");
         });
       }
-      /*axios
-        .post(" http://192.168.1.178:8764/api/auth/", data.value, {
-          headers: {
-            // axios.post("http://dev.union-eam.ru:8686/api/auth/sign-in", data.value, {headers: {
-
-            "Access-Control-Allow-Origin": "*",
-          },
-        })
-        .then((response) => {
-          axios.defaults.headers.common["Authorization"] =
-            "Bearer" + response.data;
-          localStorage.setItem("token", response.data);
-          // localStorage. = response.data;
-          //axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data
-          router.push("readers");
-          //axios.get("http://eam.interid.ru:8764/api/buildings/")
-          // commit('login', {token: response.data.token, user: response.data.user})
-        });*/
     }
 
     return {
