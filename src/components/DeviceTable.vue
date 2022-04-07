@@ -13,7 +13,7 @@
             key="name"
             :props="props"
             v-on:click="isShow(props.row.name)"
-            class="text-left"
+            class="text-left firstRow"
           >
             {{ props.row.name }}
           </q-td>
@@ -50,7 +50,6 @@
 <script>
 import { defineComponent, ref, computed } from "vue";
 import EditableDeviceTable from "components/EditableDeviceTable.vue";
-import axios from "axios";
 import { saveDevice } from "src/api";
 // import LocationList from "./LocationList.vue";
 
@@ -206,4 +205,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.firstRow {
+  width: 30%;
+}
+</style>
