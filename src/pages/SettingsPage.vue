@@ -37,6 +37,7 @@
               "
               filled
               v-model="settingsData[rightFields[index].name]"
+              min="0"
               :type="rightFields[index].type == 'number' ? 'number' : 'string'"
               :label="rightFields[index].name"
             />
@@ -71,6 +72,19 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+    <q-dialog v-model="delayMinuteAlert">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Внимание</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none"> Введите верное значение минут </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -97,6 +111,8 @@ export default {
   setup() {
     let dataCopy = {};
 
+    const regExp = new RegExp("^([0-9])$");
+
     const leftFields = [
       { name: "onPlaceStatus", type: "input" },
       { name: "systemLogin", type: "input" },
@@ -120,6 +136,14 @@ export default {
       () => getStore().getters["settings/getBaseUrlState"]
     );
     let alert = ref(false);
+
+    let delayMinuteAlert = ref(false);
+
+    console.log("DM",settingsData.value)
+    if (settingsData.value.delayMinutes<0){
+      console.log(settingsData.value)
+      settingsData.value.delayMinutes = 0;
+    }
 
     if (baseUrlState.value) {
       alert.value = true;
@@ -149,7 +173,12 @@ export default {
     }
 
     function save() {
-      postSettings(settingsData.value);
+      if(!regExp.test(settingsData.value.delayMinutes)){
+        delayMinuteAlert.value = true;
+      }
+      else {
+        postSettings(settingsData.value);
+      }
     }
     function updateResponsibleValue(value) {
       settingsData.value.systemResponsibleId = value.value;
@@ -170,6 +199,7 @@ export default {
       updateResponsibleValue,
       baseUrlState,
       alert,
+      delayMinuteAlert
     };
   },
 };
