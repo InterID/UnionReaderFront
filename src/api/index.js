@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { Notify } from 'quasar'
 // const baseURL = "http://192.168.1.178:8764"
 // const baseURL = "http://eam.interid.ru:8282";
 // const baseURL = "http://localhost:8282";
@@ -25,8 +25,18 @@ export async function auth(data, unionUrl) {
       // },
     })
     .then((response) => {
-      axios.defaults.headers.common["Authorization"] = "Bearer" + response.data;
-      localStorage.setItem("token", response.data);
+      if (response.data) {
+        console.log(response.data)
+        axios.defaults.headers.common["Authorization"] = "Bearer" + response.data;
+        localStorage.setItem("token", response.data);
+      } else {
+        //Alert.create({html: 'Warning, warning, Will Robinson!'})
+        localStorage.setItem("token", '');
+        Notify.create({
+          type: 'negative',
+          message: 'Неверный логин или пароль'
+        })
+      }
     });
 }
 
