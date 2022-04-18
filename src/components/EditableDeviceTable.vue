@@ -9,10 +9,10 @@
     >
       <template v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="name" :props="props">
+          <q-td key="name" :props="props" class="text-left">
             {{ props.row.name }}
           </q-td>
-          <q-td key="name" :props="props" @click="isShow(columns[1].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[1].label)" class="text-left">
             {{ props.row.buildingName }}
             <q-dialog
               v-model="buildingShow"
@@ -29,7 +29,7 @@
               <q-btn flat label="OK" v-close-popup />
             </q-dialog>
           </q-td>
-          <q-td key="name" :props="props" @click="isShow(columns[2].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[2].label)" class="text-left">
             {{ props.row.floorName }}
             <q-dialog
               v-model="floorShow"
@@ -47,7 +47,7 @@
               <q-btn flat label="OK" v-close-popup />
             </q-dialog>
           </q-td>
-          <q-td key="name" :props="props" @click="isShow(columns[3].label)">
+          <q-td key="name" :props="props" @click="isShow(columns[3].label)" class="text-left">
             {{ props.row.premisesName }}
             <q-dialog
               v-model="premisesShow"
@@ -100,10 +100,10 @@ const columns = [
     sortable: true,
   },
 
-  { name: "Building", label: "Здание", field: "buildingName", sortable: true },
+  { name: "Building", label: "Здание", field: "buildingName" },
   { name: "Floor", label: "Этаж", field: "floor" },
   { name: "Premises", label: "Помещение", field: "premises" },
-  { name: "Buttons", label: "", field: "buttons" },
+  //{ name: "Buttons", label: "", field: "buttons" },
 ];
 
 let buildingShow = ref(false);
