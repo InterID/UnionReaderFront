@@ -100,9 +100,9 @@ const columns = [
     sortable: true,
   },
 
-  { name: "Building", label: "Здание", field: "buildingName" },
-  { name: "Floor", label: "Этаж", field: "floor" },
-  { name: "Premises", label: "Помещение", field: "premises" },
+  { name: "Building", label: "Здание", align: "left", field: "buildingName" },
+  { name: "Floor", label: "Этаж", align: "left", field: "floor" },
+  { name: "Premises", label: "Помещение", align: "left", field: "premises" },
   //{ name: "Buttons", label: "", field: "buttons" },
 ];
 
