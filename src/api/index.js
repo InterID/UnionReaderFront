@@ -26,11 +26,9 @@ export async function auth(data, unionUrl) {
     })
     .then((response) => {
       if (response.data) {
-        console.log(response.data)
         axios.defaults.headers.common["Authorization"] = "Bearer" + response.data;
         localStorage.setItem("token", response.data);
       } else {
-        //Alert.create({html: 'Warning, warning, Will Robinson!'})
         localStorage.setItem("token", '');
         Notify.create({
           type: 'negative',

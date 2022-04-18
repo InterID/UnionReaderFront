@@ -2,7 +2,7 @@
   "name": "unionreader",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "productName": "Система автоматического учета местоположения",
   "author": "mvbondarenko_21 <mvbondarenko_2@edu.hse.ru>",
   "private": true,
   "scripts": {
