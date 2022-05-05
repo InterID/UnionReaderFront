@@ -2,8 +2,12 @@
   <q-layout>
     <q-header reveal elevated>
       <q-toolbar style="justify-content: space-between">
-        <q-btn flat dense class="q-mr-sm" @click="$router.replace('/readers')"
+        <q-btn flat dense class="q-mr-sm" @click="$router.push('/readers')"
           >Readers</q-btn
+        >
+        <q-btn flat dense class="q-mr-sm"
+               @click="$router.push('/readers-ctrl')"
+          >Readers Control</q-btn
         >
         <q-btn
           v-if="path.path !== '/'"
@@ -11,7 +15,7 @@
           round
           dense
           icon="settings"
-          @click="$router.replace('/settings')"
+          @click="$router.push('/settings')"
         />
       </q-toolbar>
     </q-header>
@@ -23,7 +27,7 @@
 
 <script>
 import { useQuasar } from "quasar";
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 
 export default {

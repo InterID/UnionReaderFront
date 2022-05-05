@@ -20,6 +20,14 @@ const routes = [
           requiresAuth: true,
         },
       },
+      {
+        path: "/readers-ctrl",
+        name: "readers-ctrl",
+        component: () => import("pages/ReadersControlPage.vue"),
+        meta: {
+          requiresAuth: true,
+        },
+      },
     ],
   },
 
