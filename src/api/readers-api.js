@@ -5,27 +5,34 @@ export async function getAllReaders() {
   return response.data;
 }
 
-export async function connectNewReader(api, port) {
+export async function connectNewReader(ip, port) {
   const response = await readersControl.post('connect', {
-    api,
+    ip,
     port
   })
   return response.data;
 }
+export async function editReader(ip, port) {
+  const response = await readersControl.post('connect', {
+    ip,
+    port
+  }) // need add prev value of ip and port readers
+  return response.data;
+}
 
-export async function startInventory(api, port) {
+export async function startInventory(ip, port) {
   const response = await readersControl.post('start/simple-inventory',
     {
-      api,
+      ip,
       port
     }
   )
   return response
 }
-export async function stopInventory(api, port) {
+export async function stopInventory(ip, port) {
   const response = await readersControl.post('stop',
     {
-      api,
+      ip,
       port
     }
   )

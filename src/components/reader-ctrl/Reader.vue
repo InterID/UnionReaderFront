@@ -1,5 +1,5 @@
 <template>
-  <div class="reader__option reader__api">{{ reader.api }}</div>
+  <div class="reader__option reader__api">{{ reader.ip }}</div>
   <div class="reader__option reader__port">{{ reader.port }}</div>
   <div class="reader__option reader__status">{{ reader.status }}</div>
   <div class="reader__edit">
@@ -19,7 +19,7 @@
     <button disabled class="reader__disconnect">disconnect</button>
   </div>
   <ReaderForm v-if="isShowForm"
-              :api="reader.api"
+              :api="reader.ip"
               :port="reader.port"
               @close-form="toggleIsShowForm"
   />

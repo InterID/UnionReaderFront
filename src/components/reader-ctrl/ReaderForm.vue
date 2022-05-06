@@ -10,6 +10,7 @@
       <label>port</label><input :value="port || ''"
                                 ref="portInput"
                                 type="number"
+                                v-maska="'####'"
                                 @focus="toggleIsInvalidInput"
                                 min="1">
       <div class="reader-form__submit">
@@ -41,7 +42,7 @@ export default {
     const toggleIsInvalidInput = () => isInvalidInput.value = false;
     const submitHandler = async () => {
       const [api, port] = [apiInput.value.value, portInput.value.value];
-      if (api.trim() === '' && port < 1) {
+      if (api.trim() === '' || port==='') {
         isInvalidInput.value = true;
         return
       }

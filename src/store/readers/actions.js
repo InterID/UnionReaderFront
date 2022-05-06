@@ -15,5 +15,11 @@ export default {
   async stopInventory(context, {api, port}) {
    const result = await stopInventory(api, port);
    console.log(result)
+  },
+  setResponseMessage({commit}, payload){
+    commit("SET_RESPONSE_MESSAGE", payload);
+    setTimeout(() => {
+      commit("SET_RESPONSE_MESSAGE", null);
+    }, 5000)
   }
 }

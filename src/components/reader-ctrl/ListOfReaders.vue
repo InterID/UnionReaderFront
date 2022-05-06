@@ -53,7 +53,10 @@ export default {
     }
     const refreshHandler = () => {
       isRefreshAnimation.value = true;
-      getStore().dispatch("readers/fetchReaders")
+      getStore().dispatch("readers/fetchReaders").catch(e => {
+        getStore().dispatch("readers/setResponseMessage", { message:e.message, isError: true });
+      })
+
     }
     watch(isRefreshAnimation, (val) => {
       if (val) {
@@ -83,6 +86,7 @@ export default {
 
 .readers {
   padding: 20px;
+
 }
 
 .readers__toolbar {
