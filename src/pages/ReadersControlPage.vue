@@ -7,7 +7,7 @@
 <script>
 import ListOfReaders from "components/reader-ctrl/ListOfReaders";
 export default {
-  name: "${ COMPONENT_NAME }",
+  name: "ReadersControlPage",
   components: { ListOfReaders }
 }
 </script>

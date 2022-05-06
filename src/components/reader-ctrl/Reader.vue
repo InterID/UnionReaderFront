@@ -1,10 +1,16 @@
 <template>
-  <div class="reader__option reader__name">{{ reader.simpleFor }}</div>
   <div class="reader__option reader__api">{{ reader.api }}</div>
   <div class="reader__option reader__port">{{ reader.port }}</div>
   <div class="reader__option reader__status">{{ reader.status }}</div>
   <div class="reader__edit">
-    <button :style="actionInventory==='start'? 'background:green': 'background:yellow'">{{actionInventory}}</button>
+    <button class="start"
+            @click="startInventory(reader.api,reader.port)"
+    >Start
+    </button>
+    <button class="stop"
+            @click="stopInventory(reader.api,reader.port)"
+    >Stop
+    </button>
   </div>
   <div class="reader__edit">
     <button class="reader__edit" @click="toggleIsShowForm">edit</button>
@@ -22,20 +28,43 @@
 <script>
 import {computed, ref} from "vue";
 import ReaderForm from "components/reader-ctrl/ReaderForm";
+import {getStore} from "src/store";
 
 export default {
   name: "${ COMPONENT_NAME }",
   props: ['reader'],
-  components: { ReaderForm },
+  components: {ReaderForm},
   setup(props) {
     const actionInventory = computed(() => {
       return props.reader.status === "NOT_INVENTORY" ? "start" : "stop";
     })
     const isShowForm = ref(false);
-    const toggleIsShowForm = ()=> {
+    const toggleIsShowForm = () => {
       isShowForm.value = !isShowForm.value
     }
-    return {actionInventory,isShowForm, toggleIsShowForm}
+    const startInventory = async (api, port) => {
+      try {
+        const result = await getStore().dispatch("readers/startInventory", {api, port})
+        console.log(result)
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    const stopInventory = async (api, port) => {
+      try {
+        const result = await getStore().dispatch("readers/stopInventory", {api, port})
+        console.log(result);
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    return {
+      actionInventory,
+      isShowForm,
+      toggleIsShowForm,
+      startInventory,
+      stopInventory,
+    }
   },
 }
 </script>
@@ -64,5 +93,14 @@ button[disabled] {
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
+}
+
+.start {
+  background: green;
+}
+
+.stop {
+  margin-left: 15px;
+  background: red;
 }
 </style>

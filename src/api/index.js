@@ -7,6 +7,14 @@ import { Notify } from 'quasar'
 // const baseURL = "https://localhost:8282";
 const baseURL = "http://9090.union-eam.ru:8282";
 //
+
+export const readersControl = axios.create({
+    baseURL: `${baseURL}/rfid`,
+    timeout: 1000,
+    headers: { "content-type": "application/json" }
+  }
+)
+
 export async function auth(data, unionUrl) {
   let dataToSend;
   if (unionUrl) {
@@ -182,3 +190,4 @@ export async function getBaseUrlFromProp() {
   });
   return data;
 }
+

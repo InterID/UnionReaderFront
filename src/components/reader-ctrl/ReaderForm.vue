@@ -1,15 +1,19 @@
 <template>
-  <div class="background" @click="emitCloseForm">
-    <div class="reader-form">
+  <div class="background" @click.self="emitCloseForm">
+    <div class="reader-form"
+         :class="{'reader-form_invalid': isInvalidInput }"
+    >
       <label>api</label><input :value="api || ''"
-                         ref="apiInput"
-                         type="text">
-        <label>port</label><input :value="port || ''"
-                          ref="portInput"
-                          type="number"
-                          min="0">
-      <div class="reader-form__submit" >
-        <button @click="submitHandler">{{ submit }}</button>
+                               ref="apiInput"
+                               type="text"
+                               @focus="toggleIsInvalidInput">
+      <label>port</label><input :value="port || ''"
+                                ref="portInput"
+                                type="number"
+                                @focus="toggleIsInvalidInput"
+                                min="1">
+      <div class="reader-form__submit">
+        <button @click="submitHandler">{{ submitButton }}</button>
       </div>
     </div>
   </div>
@@ -17,26 +21,43 @@
 
 <script>
 import {computed, ref} from "vue";
+import {getStore} from "src/store";
 
 export default {
-  name: "${ COMPONENT_NAME }",
+  name: "ReaderForm",
   props: {
     isNewConnect: Boolean,
     api: String,
     port: Number,
   },
-  setup(props,{emit}) {
-    const submit = computed(() => {
-      return props.isNewConnect? "Create":"Save"
+  setup(props, {emit}) {
+    const submitButton = computed(() => {
+      return props.isNewConnect ? "Create" : "Save"
     })
+    const isInvalidInput = ref(false);
     const apiInput = ref(null);
     const portInput = ref(null);
     const emitCloseForm = () => emit('closeForm');
-    const submitHandler = () => {
-      console.log(apiInput.value.value, portInput.value.value)
+    const toggleIsInvalidInput = () => isInvalidInput.value = false;
+    const submitHandler = async () => {
+      const [api, port] = [apiInput.value.value, portInput.value.value];
+      if (api.trim() === '' && port < 1) {
+        isInvalidInput.value = true;
+        return
+      }
+      console.log(api, port);
+      await getStore().dispatch("readers/connectNewReader", {api, port})
       emitCloseForm()
     }
-    return { submit, submitHandler,apiInput,portInput,emitCloseForm }
+    return {
+      submitButton,
+      submitHandler,
+      apiInput,
+      portInput,
+      emitCloseForm,
+      isInvalidInput,
+      toggleIsInvalidInput
+    }
   }
 }
 </script>
@@ -47,26 +68,29 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  transform: translateY(-95px);
+  transform: translateY(-150px);
   z-index: 100;
-  background: rgba(0,0,0,0.3);
-  width: 100vw;
-  height: 150vh;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
 }
+
 .reader-form {
   display: grid;
   gap: 5px;
   grid-template-columns: repeat(2, max-content);
   margin-top: 150px;
   background: white;
-  padding: 50px;
+  padding: 30px 50px;
   border-radius: 20px;
-  &__submit{
+
+  &__submit {
     padding: 5px;
     display: flex;
     width: 100%;
     justify-content: center;
     grid-column: 1/3;
+
     button {
       background: #1976d2;
       color: white;
@@ -78,6 +102,16 @@ export default {
         cursor: pointer;
       }
     }
-   }
+  }
+
+  input {
+    border: 1px solid #1976d2;
+  }
+
+  &_invalid {
+    input {
+      border: 1px solid red;
+    }
+  }
 }
 </style>
