@@ -65,11 +65,12 @@ export default {
 
 <style lang="scss" scoped>
 .background {
+  top: 0;
+  left: 0;
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  transform: translateY(-150px);
   z-index: 100;
   background: rgba(0, 0, 0, 0.3);
   width: 100%;
@@ -80,7 +81,7 @@ export default {
   display: grid;
   gap: 5px;
   grid-template-columns: repeat(2, max-content);
-  margin-top: 150px;
+  margin: auto;
   background: white;
   padding: 30px 50px;
   border-radius: 20px;

@@ -1,4 +1,7 @@
 import {connectNewReader, getAllReaders, startInventory, stopInventory} from "src/api/readers-api";
+
+let modalTimeout;
+
 export default {
   async fetchReaders(context){
    const result = await getAllReaders();
@@ -16,9 +19,15 @@ export default {
    const result = await stopInventory(api, port);
    console.log(result)
   },
-  setResponseMessage({commit}, payload){
+  setResponseMessage({commit, dispatch}, payload){
     commit("SET_RESPONSE_MESSAGE", payload);
-    setTimeout(() => {
+    dispatch("hideModal")
+  },
+  clearModalTimeout() {
+    clearTimeout(modalTimeout);
+  },
+  hideModal({commit}){
+    modalTimeout = setTimeout(() => {
       commit("SET_RESPONSE_MESSAGE", null);
     }, 5000)
   }

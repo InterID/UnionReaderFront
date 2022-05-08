@@ -12,8 +12,8 @@
         <div class="table__header">port</div>
         <div class="table__header">status</div>
         <div class="table__header">Inventory</div>
-        <div></div>
-        <div></div>
+        <div class="table__header"></div>
+        <div class="table__header"></div>
         <Reader v-for="reader of readers"
                 :key="reader.api"
                 :reader="reader"
@@ -85,12 +85,13 @@ export default {
 }
 
 .readers {
-  padding: 20px;
+  padding-top: 100px;
 
 }
 
 .readers__toolbar {
   display: flex;
+  padding: 20px 0 40px 0;
   justify-content: center;
 }
 
@@ -119,6 +120,7 @@ export default {
 
 .table__header {
   color: #1976d2;
+  border-bottom: 1px solid #1976d2;
 }
 
 .refresh {
@@ -209,10 +211,10 @@ export default {
 
 @keyframes rotate {
   from {
-    transform: rotateZ(0)
+
   }
   to {
-    transform: rotateZ(360deg)
+    transform: rotateZ(360deg);
   }
 }
 </style>

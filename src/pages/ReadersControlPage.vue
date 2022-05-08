@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ListOfReaders/>
     <ResponseMessage/>
+    <ListOfReaders/>
   </div>
 </template>
 

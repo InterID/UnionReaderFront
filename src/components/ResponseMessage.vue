@@ -1,37 +1,67 @@
 <template>
-  <div class="response-message" :class="{error: alert.isError}" v-if="alert">{{ alert.message }}</div>
+  <Transition name="fade">
+    <div v-if="alert" class="container"
+         @mouseenter="store.dispatch('readers/clearModalTimeout')"
+         @mouseleave="store.dispatch('readers/hideModal')"
+    >
+      <div :class="{error: alert.isError}" class="response-message">{{ alert.message }}</div>
+    </div>
+  </Transition>
 </template>
 
-<script>
-import {computed} from "vue";
-import {getStore} from "src/store";
 
+<script>
 export default {
   name: "ResponseMessage",
-  setup() {
-    const alert = computed(() => {
-      return getStore().getters["readers/getResponseMessage"];
-    })
-    return { alert }
-  }
 }
+</script>
+<script setup>
+import {computed} from "vue";
+import {useStore} from "vuex"
+
+const store = useStore();
+const alert = computed(() => {
+  return store.getters["readers/getResponseMessage"];
+})
 </script>
 
 <style scoped>
+.container {
+  position: absolute;
+  width: 100%;
+  transform: translateY(20px);
+  display: flex;
+  z-index: 300;
+  justify-content: center;
+}
 .response-message {
   text-align: center;
-  animation: opacity 600ms ease;
   color: green;
+  padding: 20px;
+  z-index: 300;
+  background-color: white;
+  width: 50%;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
 }
-.error{
+
+.error {
   color: red;
 }
-@keyframes opacity {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
