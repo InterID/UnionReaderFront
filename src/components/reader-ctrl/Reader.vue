@@ -2,7 +2,7 @@
   <div class="reader__option reader__api">{{ reader.ip }}</div>
   <div class="reader__option reader__port">{{ reader.port }}</div>
   <div class="reader__option reader__status">{{ reader.status }}</div>
-  <div class="reader__edit">
+  <div class="reader__button">
     <button class="start"
             @click="startInventory(reader.api,reader.port)"
     >Start
@@ -12,10 +12,10 @@
     >Stop
     </button>
   </div>
-  <div class="reader__edit">
-    <button class="reader__edit" @click="toggleIsShowForm">edit</button>
+  <div class="reader__button">
+    <button  @click="toggleIsShowForm">edit</button>
   </div>
-  <div class="reader__delete">
+  <div class="reader__button">
     <button disabled class="reader__disconnect">disconnect</button>
   </div>
   <ReaderForm v-if="isShowForm"
@@ -96,7 +96,6 @@ button[disabled] {
 }
 
 .start {
-  background: green;
 }
 
 .stop {

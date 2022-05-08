@@ -115,7 +115,11 @@ export default {
   justify-items: center;
   margin-top: 20px;
   padding: 20px;
+  border-radius: 10px;
   border: 1px solid #1976d2;
+  box-shadow: 0 3px 7px rgba(25, 118, 210, 0.3);
+  background-clip: padding-box;
+  font-size: 1.2rem;
 }
 
 .table__header {

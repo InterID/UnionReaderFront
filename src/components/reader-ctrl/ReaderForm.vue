@@ -84,7 +84,10 @@ export default {
   margin: auto;
   background: white;
   padding: 30px 50px;
-  border-radius: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  background-clip: padding-box;
 
   &__submit {
     padding: 5px;
