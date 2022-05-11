@@ -41,7 +41,7 @@ export default {
     const toggleIsInvalidInput = () => isInvalidInput.value = false;
     const submitHandler = async () => {
       const [api, port] = [apiInput.value.value, portInput.value.value];
-      if (api.trim() === '' || port==='') {
+      if (api.trim() === '' || port==='' || port<1) {
         isInvalidInput.value = true;
         return
       }
