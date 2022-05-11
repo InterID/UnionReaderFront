@@ -10,7 +10,6 @@
       <label>port</label><input :value="port || ''"
                                 ref="portInput"
                                 type="number"
-                                v-maska="'####'"
                                 @focus="toggleIsInvalidInput"
                                 min="1">
       <div class="reader-form__submit">

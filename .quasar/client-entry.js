@@ -37,8 +37,6 @@ import 'src/css/app.scss'
 
 import createQuasarApp from './app.js'
 import quasarUserOptions from './quasar-user-options.js'
-import Maska from "maska";
-
 
 
 
@@ -55,25 +53,24 @@ const publicPath = ``
 
 
 async function start ({ app, router, store, storeKey }) {
+  
 
-
-
+  
 
   app.use(router)
   app.use(store, storeKey)
-  app.use(Maska)
 
+  
 
+    
 
-
-
-
+    
       app.mount('#q-app')
+    
 
+    
 
-
-
-
+  
 
 }
 
