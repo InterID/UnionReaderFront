@@ -1,6 +1,6 @@
 <template>
   <div class="background" @click.self="emitCloseForm">
-    <div class="reader-form"
+    <form @submit.prevent class="reader-form"
          :class="{'reader-form_invalid': isInvalidInput }"
     >
       <label>api</label><input :value="api || ''"
@@ -15,7 +15,7 @@
       <div class="reader-form__submit">
         <button @click="submitHandler">{{ submitButton }}</button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
