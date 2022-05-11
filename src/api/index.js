@@ -9,7 +9,7 @@ const baseURL = "http://9090.union-eam.ru:8282";
 //
 
 export const readersControl = axios.create({
-    baseURL: `${baseURL}/rfid`,
+    baseURL: `${baseURL}/api/rfid`,
     timeout: 1000,
     headers: { "content-type": "application/json" }
   }

@@ -1,8 +1,9 @@
 import {readersControl} from "src/api/index";
 
+
 export async function getAllReaders() {
   const response = await readersControl.get('get/readers/')
-  return response.data;
+  return response;
 }
 
 export async function connectNewReader(ip, port) {
@@ -10,14 +11,14 @@ export async function connectNewReader(ip, port) {
     ip,
     port
   })
-  return response.data;
+  return response;
 }
 export async function editReader(ip, port) {
   const response = await readersControl.post('connect', {
     ip,
     port
   }) // need add prev value of ip and port readers
-  return response.data;
+  return response;
 }
 
 export async function startInventory(ip, port) {
@@ -27,7 +28,7 @@ export async function startInventory(ip, port) {
       port
     }
   )
-  return response
+  return response;
 }
 export async function stopInventory(ip, port) {
   const response = await readersControl.post('stop',
@@ -36,5 +37,5 @@ export async function stopInventory(ip, port) {
       port
     }
   )
-  return response
+  return response;
 }

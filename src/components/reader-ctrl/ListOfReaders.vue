@@ -53,10 +53,7 @@ export default {
     }
     const refreshHandler = () => {
       isRefreshAnimation.value = true;
-      getStore().dispatch("readers/fetchReaders").catch(e => {
-        getStore().dispatch("readers/setResponseMessage", { message:e.message, isError: true });
-      })
-
+      getStore().dispatch("readers/fetchReaders")
     }
     watch(isRefreshAnimation, (val) => {
       if (val) {
