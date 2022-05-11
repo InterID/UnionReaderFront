@@ -4,5 +4,8 @@ export default {
  },
   SET_RESPONSE_MESSAGE(state,payload){
    state.responseMessage = payload;
+  },
+  SET_READERS(state, payload) {
+    state.readers = payload;
   }
 }
