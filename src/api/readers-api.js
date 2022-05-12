@@ -1,5 +1,17 @@
 import {readersControl} from "src/api/index";
+import {getStore} from "src/store";
 
+
+readersControl.interceptors.response.use(function (response) {
+  // Any status code that lie within the range of 2xx cause this function to trigger
+  // Do something with response data
+  return response;
+}, function (error) {
+  getStore().dispatch("readers/setResponseMessage", { isError: true, message: error.message });
+  // Any status codes that falls outside the range of 2xx cause this function to trigger
+  // Do something with response error
+  return Promise.reject(error);
+});
 
 export async function getAllReaders() {
   const response = await readersControl.get('get/readers/')

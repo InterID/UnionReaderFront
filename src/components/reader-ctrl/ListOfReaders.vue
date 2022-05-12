@@ -11,6 +11,7 @@
         <div class="table__header">api</div>
         <div class="table__header">port</div>
         <div class="table__header">status</div>
+        <div class="table__header"></div>
         <div class="table__header">Inventory</div>
         <div class="table__header"></div>
         <div class="table__header"></div>
@@ -108,7 +109,7 @@ export default {
 .readers__list {
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(6, max-content);
+  grid-template-columns: repeat(7, max-content);
   justify-items: center;
   margin-top: 20px;
   padding: 20px;

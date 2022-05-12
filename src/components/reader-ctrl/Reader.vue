@@ -4,16 +4,22 @@
   <div class="reader__option reader__status">{{ reader.status }}</div>
   <div class="reader__button">
     <button class="start"
-            @click="startInventory(reader.api,reader.port)"
+            @click="connectCurrentReader(reader.ip,reader.port)"
+    >Connect
+    </button>
+  </div>
+  <div class="reader__button">
+    <button class="start"
+            @click="startInventory(reader.ip,reader.port)"
     >Start
     </button>
     <button class="stop"
-            @click="stopInventory(reader.api,reader.port)"
+            @click="stopInventory(reader.ip,reader.port)"
     >Stop
     </button>
   </div>
   <div class="reader__button">
-    <button  @click="toggleIsShowForm">edit</button>
+    <button @click="toggleIsShowForm">edit</button>
   </div>
   <div class="reader__button">
     <button disabled class="reader__disconnect">disconnect</button>
@@ -26,44 +32,34 @@
 </template>
 
 <script>
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import ReaderForm from "components/reader-ctrl/ReaderForm";
 import {getStore} from "src/store";
 
 export default {
-  name: "${ COMPONENT_NAME }",
+  name: "Reader",
   props: ['reader'],
   components: {ReaderForm},
-  setup(props) {
-    const actionInventory = computed(() => {
-      return props.reader.status === "NOT_INVENTORY" ? "start" : "stop";
-    })
+  setup() {
     const isShowForm = ref(false);
     const toggleIsShowForm = () => {
       isShowForm.value = !isShowForm.value
     }
-    const startInventory = async (api, port) => {
-      try {
-        const result = await getStore().dispatch("readers/startInventory", {api, port})
-        console.log(result)
-      } catch (e) {
-        console.log(e)
-      }
+    const connectCurrentReader = (api, port) => {
+      getStore().dispatch("readers/connectReader", {api, port})
     }
-    const stopInventory = async (api, port) => {
-      try {
-        const result = await getStore().dispatch("readers/stopInventory", {api, port})
-        console.log(result);
-      } catch (e) {
-        console.log(e)
-      }
+    const startInventory = (api, port) => {
+      getStore().dispatch("readers/startInventory", {api, port})
+    }
+    const stopInventory = (api, port) => {
+      getStore().dispatch("readers/stopInventory", {api, port})
     }
     return {
-      actionInventory,
       isShowForm,
       toggleIsShowForm,
       startInventory,
       stopInventory,
+      connectCurrentReader
     }
   },
 }

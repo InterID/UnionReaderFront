@@ -21,9 +21,9 @@ export default {
     const result = await getAllReaders();
     responseHandler(result.data, dispatch, true)
     console.log(result);
-    commit("SET_READERS", result);
+    commit("SET_READERS", result.data.value);
   },
-  async connectNewReader({dispatch}, {api, port}) {
+  async connectReader({dispatch}, {api, port}) {
     const result = await connectNewReader(api, port);
     responseHandler(result.data, dispatch)
     console.log(result);

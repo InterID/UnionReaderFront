@@ -45,8 +45,7 @@ export default {
         isInvalidInput.value = true;
         return
       }
-      console.log(api, port);
-      await getStore().dispatch("readers/connectNewReader", {api, port})
+      await getStore().dispatch("readers/connectReader", {api, port})
       emitCloseForm()
     }
     return {
