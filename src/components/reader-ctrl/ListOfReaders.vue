@@ -6,6 +6,11 @@
               :class="{active: isRefreshAnimation}"
       @click="refreshHandler"></button>
     </div>
+    <ReaderForm
+      v-if="isShowForm"
+      :is-new-connect="true"
+      @close-form=toggleIsShowForm
+    />
     <div class="container">
       <div class="readers__list" v-if="readers.length > 0 && !isLoading">
         <div class="table__header">api</div>
@@ -18,11 +23,6 @@
         <Reader v-for="reader of readers"
                 :key="reader.api"
                 :reader="reader"
-        />
-        <ReaderForm
-          v-if="isShowForm"
-          :is-new-connect="true"
-          @close-form=toggleIsShowForm
         />
       </div>
       <div class="loader" v-else>Loading...</div>
