@@ -5,24 +5,22 @@
   <div class="reader__button">
     <button class="start"
             @click="connectCurrentReader(reader.ip,reader.port)"
-    >Connect
+    >connect
     </button>
+    <button  class="reader__disconnect">disconnect</button>
   </div>
   <div class="reader__button">
     <button class="start"
             @click="startInventory(reader.ip,reader.port)"
-    >Start
+    >start
     </button>
-    <button class="stop"
+    <button
             @click="stopInventory(reader.ip,reader.port)"
-    >Stop
+    >stop
     </button>
   </div>
   <div class="reader__button">
-    <button @click="toggleIsShowForm">edit</button>
-  </div>
-  <div class="reader__button">
-    <button disabled class="reader__disconnect">disconnect</button>
+    <button class="reader__delete"></button>
   </div>
   <ReaderForm v-if="isShowForm"
               :api="reader.ip"
@@ -70,6 +68,25 @@ export default {
   &__option {
     padding: 0 20px;
   }
+
+  &__button {
+    button {
+      &:first-of-type {
+        margin-right: 15px;
+      }
+    }
+  }
+  &__delete {
+    margin-left: 15px;
+    background: white;
+    border-radius: 100%;
+    background-image: url("../../assets/icons/bin.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px 20px;
+    width: 33px;
+    height: 33px;
+  }
 }
 
 button {
@@ -95,7 +112,7 @@ button[disabled] {
 }
 
 .stop {
-  margin-left: 15px;
   background: red;
 }
+
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="readers">
     <div class="readers__toolbar">
-      <button class="readers__button" @click="toggleIsShowForm">New Connect</button>
+      <button class="readers__button" @click="toggleIsShowForm">Add Reader</button>
       <button class="readers__button refresh"
               :class="{active: isRefreshAnimation}"
       @click="refreshHandler"></button>
@@ -16,9 +16,8 @@
         <div class="table__header">api</div>
         <div class="table__header">port</div>
         <div class="table__header">status</div>
-        <div class="table__header"></div>
+        <div class="table__header">Connection</div>
         <div class="table__header">Inventory</div>
-        <div class="table__header"></div>
         <div class="table__header"></div>
         <Reader v-for="reader of readers"
                 :key="reader.api"
@@ -111,7 +110,7 @@ export default {
 .readers__list {
   display: grid;
   gap: 15px;
-  grid-template-columns: repeat(7, max-content);
+  grid-template-columns: repeat(6, max-content);
   justify-items: center;
   margin-top: 20px;
   padding: 20px;
