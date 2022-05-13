@@ -7,7 +7,7 @@
       @click="refreshHandler"></button>
     </div>
     <div class="container">
-      <div class="readers__list" v-if="readers.length > 0">
+      <div class="readers__list" v-if="readers.length > 0 && !isLoading">
         <div class="table__header">api</div>
         <div class="table__header">port</div>
         <div class="table__header">status</div>
@@ -48,6 +48,7 @@ export default {
     const isRefreshAnimation = ref(false);
     const isShowForm = ref(false);
     const readers = computed(() => getStore().getters["readers/getReaders"]);
+    const isLoading = computed(() => getStore().getters["readers/getIsLoading"]);
 
     const toggleIsShowForm = () => {
       isShowForm.value = !isShowForm.value;
@@ -69,7 +70,8 @@ export default {
       toggleIsShowForm,
       isShowForm,
       refreshHandler,
-      isRefreshAnimation
+      isRefreshAnimation,
+      isLoading
     }
   }
 }

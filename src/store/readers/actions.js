@@ -17,9 +17,16 @@ const responseHandler = (data, dispatch, isFetchReaders = false) => {
 
 export default {
   async fetchReaders({commit, dispatch}) {
-    const result = await getAllReaders();
-    responseHandler(result.data, dispatch, true)
-    commit("SET_READERS", result.data.value);
+    commit("SET_IS_LOADING", true);
+    try {
+      const result = await getAllReaders();
+      responseHandler(result.data, dispatch, true)
+      commit("SET_READERS", result.data.value);
+      commit("SET_IS_LOADING", false);
+    } catch {
+      commit("SET_IS_LOADING", false);
+    }
+
   },
   async connectReader({dispatch}, {api, port}) {
     const result = await connectNewReader(api, port);
