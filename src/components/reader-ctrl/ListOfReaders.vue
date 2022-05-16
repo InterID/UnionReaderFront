@@ -8,7 +8,6 @@
     </div>
     <ReaderForm
       v-if="isShowForm"
-      :is-new-connect="true"
       @close-form=toggleIsShowForm
     />
     <div class="container">
