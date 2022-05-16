@@ -23,7 +23,7 @@
                 :reader="reader"
         />
       </div>
-      <div v-else-if="readers.length === 0">Readers not found. <a class="readers__link" @click="toggleIsShowForm">No Readers found.</a></div>
+      <div v-else-if="readers.length === 0">No Readers found. <a class="readers__link" @click="toggleIsShowForm">Add one.</a></div>
       <div class="loader" v-else>Loading...</div>
     </div>
   </div>
