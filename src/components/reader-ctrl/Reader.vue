@@ -22,35 +22,35 @@
   <div class="reader__button">
     <button class="reader__delete"></button>
   </div>
-  <ReaderForm v-if="isShowForm"
-              :api="reader.ip"
-              :port="reader.port"
-              @close-form="toggleIsShowForm"
-  />
 </template>
 
 <script>
 import {ref} from "vue";
-import ReaderForm from "components/reader-ctrl/ReaderForm";
-import {getStore} from "src/store";
+import {useStore} from "vuex";
 
 export default {
   name: "Reader",
   props: ['reader'],
-  components: {ReaderForm},
   setup() {
+    const store = useStore();
     const isShowForm = ref(false);
     const toggleIsShowForm = () => {
       isShowForm.value = !isShowForm.value
     }
     const connectCurrentReader = (api, port) => {
-      getStore().dispatch("readers/connectReader", {api, port})
+      store.dispatch("readers/connectReader", {api, port})
     }
     const startInventory = (api, port) => {
-      getStore().dispatch("readers/startInventory", {api, port})
+      store.dispatch("readers/startInventory", {api, port})
     }
     const stopInventory = (api, port) => {
-      getStore().dispatch("readers/stopInventory", {api, port})
+      store.dispatch("readers/stopInventory", {api, port})
+    }
+    const deleteReader = (api,port) => {
+      store.dispatch("readers/deleteReader", {api, port})
+    }
+    const disconnectReader = (api,port) => {
+      store.dispatch("readers/disconnectReader", {api, port})
     }
     return {
       isShowForm,
