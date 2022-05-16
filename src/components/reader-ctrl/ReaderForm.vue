@@ -1,7 +1,7 @@
 <template>
   <div class="background" @click.self="emitCloseForm">
     <form @submit.prevent class="reader-form"
-         :class="{'reader-form_invalid': isInvalidInput }"
+          :class="{'reader-form_invalid': isInvalidInput }"
     >
       <label>api</label><input :value="api || ''"
                                ref="apiInput"
@@ -13,27 +13,24 @@
                                 @focus="toggleIsInvalidInput"
                                 min="1">
       <div class="reader-form__submit">
-        <button @click="submitHandler">{{ submitButton }}</button>
+        <button @click="submitHandler">Add</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import {computed, ref} from "vue";
-import {getStore} from "src/store";
+import {ref} from "vue";
+import {useStore} from "vuex";
 
 export default {
   name: "ReaderForm",
   props: {
-    isNewConnect: Boolean,
     api: String,
     port: Number,
   },
   setup(props, {emit}) {
-    const submitButton = computed(() => {
-      return props.isNewConnect ? "Create" : "Save"
-    })
+    const store = useStore();
     const isInvalidInput = ref(false);
     const apiInput = ref(null);
     const portInput = ref(null);
@@ -41,15 +38,14 @@ export default {
     const toggleIsInvalidInput = () => isInvalidInput.value = false;
     const submitHandler = async () => {
       const [api, port] = [apiInput.value.value, portInput.value.value];
-      if (api.trim() === '' || port==='' || port<1) {
+      if (api.trim() === '' || port === '' || port < 1) {
         isInvalidInput.value = true;
         return
       }
-      await getStore().dispatch("readers/connectReader", {api, port})
+      await store.dispatch("readers/addReader", {api, port})
       emitCloseForm()
     }
     return {
-      submitButton,
       submitHandler,
       apiInput,
       portInput,
