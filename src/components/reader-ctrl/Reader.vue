@@ -4,23 +4,22 @@
   <div class="reader__option reader__status">{{ reader.status }}</div>
   <div class="reader__button">
     <button class="start"
-            @click="connectCurrentReader(reader.ip,reader.port)"
-    >connect
+            @click="connectCurrentReader(reader.ip,reader.port)">connect
     </button>
-    <button  class="reader__disconnect">disconnect</button>
+    <button class="reader__disconnect"
+            @click="disconnectReader(reader.ip,reader.port)">disconnect
+    </button>
   </div>
   <div class="reader__button">
     <button class="start"
-            @click="startInventory(reader.ip,reader.port)"
-    >start
+            @click="startInventory(reader.ip,reader.port)">start
     </button>
     <button
-            @click="stopInventory(reader.ip,reader.port)"
-    >stop
+      @click="stopInventory(reader.ip,reader.port)">stop
     </button>
   </div>
   <div class="reader__button">
-    <button class="reader__delete"></button>
+    <button class="reader__delete" @click="deleteReader(reader.ip,reader.port)"></button>
   </div>
 </template>
 
@@ -46,10 +45,10 @@ export default {
     const stopInventory = (api, port) => {
       store.dispatch("readers/stopInventory", {api, port})
     }
-    const deleteReader = (api,port) => {
+    const deleteReader = (api, port) => {
       store.dispatch("readers/deleteReader", {api, port})
     }
-    const disconnectReader = (api,port) => {
+    const disconnectReader = (api, port) => {
       store.dispatch("readers/disconnectReader", {api, port})
     }
     return {
@@ -57,7 +56,9 @@ export default {
       toggleIsShowForm,
       startInventory,
       stopInventory,
-      connectCurrentReader
+      connectCurrentReader,
+      deleteReader,
+      disconnectReader
     }
   },
 }
@@ -76,6 +77,7 @@ export default {
       }
     }
   }
+
   &__delete {
     margin-left: 15px;
     background: white;

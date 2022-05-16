@@ -20,9 +20,12 @@ export async function getAllReaders() {
 
 export async function connectNewReader(ip, port) {
   const response = await readersControl.post('', {
-    ip,
-    port
-  })
+      ip,
+      port
+    },
+    {
+      headers: {"content-type": "application/json"}
+    })
   return response;
 }
 
