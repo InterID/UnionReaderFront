@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Notify } from 'quasar'
+import {Notify} from 'quasar'
 // const baseURL = "http://192.168.1.178:8764"
 // const baseURL = "http://eam.interid.ru:8282";
 // const baseURL = "http://localhost:8282";
@@ -9,7 +9,10 @@ const baseURL = "http://9090.union-eam.ru:8282";
 //
 
 export const readersControl = axios.create({
-    baseURL: `http://192.168.1.117:8764/api/hardware/readers`
+    baseURL: `http://192.168.1.117:8764/api/hardware/readers`,
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    },
   }
 )
 
