@@ -23,6 +23,7 @@
                 :reader="reader"
         />
       </div>
+      <div v-else-if="readers.length === 0">Readers not found. <a class="readers__link" @click="toggleIsShowForm">No Readers found.</a></div>
       <div class="loader" v-else>Loading...</div>
     </div>
   </div>
@@ -85,6 +86,11 @@ export default {
 .readers {
   padding-top: 100px;
 
+}
+.readers__link {
+  color: #1976d2;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .readers__toolbar {
