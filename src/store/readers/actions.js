@@ -1,4 +1,11 @@
-import {connectNewReader, getAllReaders, startInventory, stopInventory} from "src/api/readers-api";
+import {
+  connectNewReader,
+  getAllReaders,
+  startInventory,
+  stopInventory,
+  deleteReader,
+  connectReader
+} from "src/api/readers-api";
 
 let modalTimeout;
 
@@ -28,10 +35,19 @@ export default {
     }
 
   },
-  async connectReader({dispatch}, {api, port}) {
+  async addReader({dispatch}, {api, port}) {
     const result = await connectNewReader(api, port);
     responseHandler(result.data, dispatch)
   },
+  async deleteReader({dispatch}, {api, port}) {
+    const result = await deleteReader(api, port);
+    responseHandler(result.data, dispatch)
+  },
+  async connectReader({dispatch}, {api, port}) {
+    const result = await connectReader(api, port);
+    responseHandler(result.data, dispatch)
+  },
+
   async startInventory({dispatch}, {api, port}) {
     const result = await startInventory(api, port);
     responseHandler(result.data, dispatch)
