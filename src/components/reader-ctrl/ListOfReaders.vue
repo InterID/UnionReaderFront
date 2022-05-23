@@ -5,6 +5,10 @@
       <button class="readers__button refresh"
               :class="{active: isRefreshAnimation}"
       @click="refreshHandler"></button>
+      <button
+        class="readers__button"
+        @click="downloadLogs"
+      >Download Logs</button>
     </div>
     <ReaderForm
       v-if="isShowForm"
@@ -56,6 +60,9 @@ export default {
       isRefreshAnimation.value = true;
       getStore().dispatch("readers/fetchReaders")
     }
+    const downloadLogs = () => {
+      getStore().dispatch("readers/downloadLogs");
+    }
     watch(isRefreshAnimation, (val) => {
       if (val) {
         setTimeout(()=>{
@@ -70,7 +77,8 @@ export default {
       isShowForm,
       refreshHandler,
       isRefreshAnimation,
-      isLoading
+      isLoading,
+      downloadLogs
     }
   }
 }
@@ -132,7 +140,7 @@ export default {
 }
 
 .refresh {
-  margin: 0 0 0 80px;
+  margin: 0 80px 0 80px;
   border-radius: 100%;
   background-image: url("../../assets/icons/spinner.svg");
   background-repeat: no-repeat;

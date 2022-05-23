@@ -35,7 +35,8 @@ export async function deleteReader(ip, port) {
 }
 
 export async function connectReader(ip, port) {
-  const response = await readersControl.post(`ip/${ip}/port/${port}/connect`);
+  const response = await readersControl.post(`ip/${ip}/port/${port}/connect`, {
+  });
   return response;
 }
 
@@ -51,5 +52,11 @@ export async function startInventory(ip, port) {
 
 export async function stopInventory(ip, port) {
   const response = await readersControl.post(`ip/${ip}/port/${port}/stop-inventory`);
+  return response;
+}
+export async function downloadLogs() {
+  const response = await readersControl.get(`logs`, {
+    responseType: 'arraybuffer',
+  });
   return response;
 }

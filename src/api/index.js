@@ -5,7 +5,7 @@ import {Notify} from 'quasar'
 // const baseURL = "http://localhost:8282";
 // const baseURL = "http://192.168.1.95:8765";
 // const baseURL = "https://localhost:8282";
-const baseURL = "http://9090.union-eam.ru:8282";
+const baseURL = "http://192.168.1.117:8764";
 //
 
 export const readersControl = axios.create({

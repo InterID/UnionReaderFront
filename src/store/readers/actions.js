@@ -5,7 +5,8 @@ import {
   stopInventory,
   deleteReader,
   connectReader,
-  disconnectReader
+  disconnectReader,
+  downloadLogs
 } from "src/api/readers-api";
 
 let modalTimeout;
@@ -67,6 +68,16 @@ export default {
   async stopInventory({dispatch}, {api, port}) {
     const result = await stopInventory(api, port);
     responseHandler(result.data, dispatch, "Stop Inventory!");
+  },
+  async downloadLogs({dispatch}) {
+    const result =  await downloadLogs();
+    responseHandler(result.data, dispatch, "Download logs!", true);
+    const url = window.URL.createObjectURL(new Blob([result.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'logs.log');
+    document.body.appendChild(link);
+    link.click();
   },
   setResponseMessage({commit, dispatch}, payload) {
     dispatch("clearModalTimeout");
